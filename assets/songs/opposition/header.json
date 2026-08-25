@@ -1,0 +1,10 @@
+{
+	"format": "psych",
+	"charts": {
+		"normal": "opposition-hard.json"
+	},
+	"multitrack": false,
+	"tracks": {
+		"instrumental": "Inst.ogg"
+	}
+}

@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://d2hrs3e0hej1l"]
+
+[ext_resource type="PackedScene" uid="uid://xeexjscoui6c" path="res://objects/Notefield.tscn" id="1_ibkli"]
+[ext_resource type="Script" uid="uid://btvv0ghrqx7ul" path="res://scenes/game.gd" id="1_qbsmt"]
+[ext_resource type="PackedScene" uid="uid://bun2p1wg2xo08" path="res://objects/huds/SignatureHUD.tscn" id="3_cpr0p"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_cpr0p"]
+font_size = 64
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_qbsmt")
+
+[node name="hud" type="CanvasLayer" parent="."]
+
+[node name="PlrField" parent="hud" instance=ExtResource("1_ibkli")]
+playerNum = 0
+player = true
+keyCount = 4
+
+[node name="Oppfield" parent="hud" instance=ExtResource("1_ibkli")]
+playerNum = 1
+player = false
+keyCount = 4
+
+[node name="SignatureHud" parent="hud" instance=ExtResource("3_cpr0p")]
+z_index = 5
+
+[node name="Label" type="Label" parent="hud"]
+offset_left = 551.0
+offset_top = 166.0
+offset_right = 592.0
+offset_bottom = 254.0
+text = "R"
+label_settings = SubResource("LabelSettings_cpr0p")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(760, 401)
+zoom = Vector2(0.9, 0.9)

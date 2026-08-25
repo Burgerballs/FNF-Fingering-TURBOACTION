@@ -1,0 +1,11 @@
+{
+	"format": "psych",
+	"charts": {
+		"normal": "test.json"
+	},
+	"multitrack": false,
+	"tracks": {
+		"instrumental": "Inst.ogg",
+		"vocals": "Voices.ogg"
+	}
+}

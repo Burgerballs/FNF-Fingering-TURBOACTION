@@ -1,0 +1,56 @@
+[gd_scene load_steps=6 format=3 uid="uid://bx78fb44n1itp"]
+
+[ext_resource type="Texture2D" uid="uid://covi4ksv7sdck" path="res://assets/stages/stage/stageback.png" id="1_gqt7r"]
+[ext_resource type="Script" uid="uid://0cqirijkcx70" path="res://objects/stages/BaseStage.gd" id="1_y2s8j"]
+[ext_resource type="Texture2D" uid="uid://bbn4ry54i53gb" path="res://assets/stages/stage/stagefront.png" id="2_nic62"]
+[ext_resource type="Texture2D" uid="uid://cvlk1kskj7y46" path="res://assets/stages/stage/stage_light.png" id="3_y2s8j"]
+[ext_resource type="Texture2D" uid="uid://b4n17m6a3h0ft" path="res://assets/stages/stage/stagecurtains.png" id="4_nic62"]
+
+[node name="Stage" type="Node2D" node_paths=PackedStringArray("dad_pos", "bf_pos")]
+script = ExtResource("1_y2s8j")
+dad_pos = NodePath("dadPosition")
+bf_pos = NodePath("bfPosition")
+
+[node name="Parallax2D" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.9, 0.9)
+
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D"]
+position = Vector2(-600, -200)
+texture = ExtResource("1_gqt7r")
+centered = false
+
+[node name="Sprite2D2" type="Sprite2D" parent="Parallax2D"]
+position = Vector2(-650, 600)
+texture = ExtResource("2_nic62")
+centered = false
+
+[node name="StageLight" type="Sprite2D" parent="Parallax2D"]
+position = Vector2(-125, -100)
+scale = Vector2(1.1, 1.1)
+texture = ExtResource("3_y2s8j")
+centered = false
+
+[node name="StageLight2" type="Sprite2D" parent="Parallax2D"]
+position = Vector2(1225, -100)
+scale = Vector2(1.1, 1.1)
+texture = ExtResource("3_y2s8j")
+centered = false
+flip_h = true
+
+[node name="Parallax2D2" type="Parallax2D" parent="."]
+scroll_scale = Vector2(1.3, 1.3)
+
+[node name="Stagecurtains" type="Sprite2D" parent="Parallax2D2"]
+position = Vector2(-500, -300)
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("4_nic62")
+centered = false
+
+[node name="dadPosition" type="Node2D" parent="."]
+position = Vector2(283, 831)
+
+[node name="gfPosition" type="Node2D" parent="."]
+position = Vector2(699.5, 733)
+
+[node name="bfPosition" type="Node2D" parent="."]
+position = Vector2(937.5, 831)

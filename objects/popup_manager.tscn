@@ -1,0 +1,101 @@
+[gd_scene format=3 uid="uid://br4ub02qw750b"]
+
+[ext_resource type="Script" uid="uid://coi3ov5443lpn" path="res://objects/popup_manager.gd" id="1_wckwe"]
+[ext_resource type="Texture2D" uid="uid://dx48wk3htb20t" path="res://assets/ratings/judgements.png" id="2_3grqi"]
+[ext_resource type="Texture2D" uid="uid://cecoachrnk1vy" path="res://assets/ratings/comboNums.png" id="3_iondx"]
+
+[sub_resource type="Animation" id="Animation_iondx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.7, 0.7)]
+}
+
+[sub_resource type="Animation" id="Animation_4hpwv"]
+resource_name = "bump"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.19999999),
+"transitions": PackedFloat32Array(0.2500005, 1),
+"update": 0,
+"values": [Vector2(0.8, 0.8), Vector2(0.7, 0.7)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ewd2o"]
+_data = {
+&"RESET": SubResource("Animation_iondx"),
+&"bump": SubResource("Animation_4hpwv")
+}
+
+[sub_resource type="Animation" id="Animation_ewd2o"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.5, 0.5)]
+}
+
+[sub_resource type="Animation" id="Animation_vclvc"]
+resource_name = "bump"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.19999999),
+"transitions": PackedFloat32Array(0.2500005, 1),
+"update": 0,
+"values": [Vector2(0.6, 0.6), Vector2(0.5, 0.5)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3fyjj"]
+_data = {
+&"RESET": SubResource("Animation_ewd2o"),
+&"bump": SubResource("Animation_vclvc")
+}
+
+[node name="PopupManager" type="Node2D" unique_id=663449972]
+script = ExtResource("1_wckwe")
+
+[node name="ratings" type="Sprite2D" parent="." unique_id=861809847]
+position = Vector2(898.99994, 310.39996)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("2_3grqi")
+vframes = 6
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ratings" unique_id=1877392138]
+libraries/ = SubResource("AnimationLibrary_ewd2o")
+
+[node name="digits" type="Node2D" parent="." unique_id=849686927]
+position = Vector2(842, 406)
+
+[node name="ComboTemplate" type="Sprite2D" parent="." unique_id=135429576]
+visible = false
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_iondx")
+hframes = 12
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ComboTemplate" unique_id=1648052900]
+libraries/ = SubResource("AnimationLibrary_3fyjj")

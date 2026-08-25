@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://5jb1ojx0csby"]
+
+[ext_resource type="PackedScene" uid="uid://dfi4gr12i6r44" path="res://objects/Sustain.tscn" id="1_mkqsp"]
+
+[node name="ManySustains" type="Node2D" unique_id=461602185]
+
+[node name="Sustain" parent="." unique_id=478524633 instance=ExtResource("1_mkqsp")]
+position = Vector2(500, 218)
+
+[node name="Sustain2" parent="." unique_id=269337354 instance=ExtResource("1_mkqsp")]
+position = Vector2(862, 192)
+
+[node name="Sustain3" parent="." unique_id=557101071 instance=ExtResource("1_mkqsp")]
+position = Vector2(291, 300)
+
+[node name="Sustain4" parent="." unique_id=1974626987 instance=ExtResource("1_mkqsp")]
+position = Vector2(653, 274)
+
+[node name="Sustain5" parent="." unique_id=1210264208 instance=ExtResource("1_mkqsp")]
+position = Vector2(604, 281)
+
+[node name="Sustain6" parent="." unique_id=635392992 instance=ExtResource("1_mkqsp")]
+position = Vector2(966, 255)
+
+[node name="Sustain7" parent="." unique_id=1020483034 instance=ExtResource("1_mkqsp")]
+position = Vector2(395, 363)
+
+[node name="Sustain8" parent="." unique_id=1256105884 instance=ExtResource("1_mkqsp")]
+position = Vector2(757, 337)

@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://cs0er2730nr53"]
+
+[ext_resource type="Script" uid="uid://g2fovssxkkh4" path="res://scenes/freeplay.gd" id="1_066v2"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_hkr2y"]
+font_size = 32
+font_color = Color(0, 0, 0, 1)
+
+[node name="Freeplay" type="Node2D" unique_id=1369000767]
+script = ExtResource("1_066v2")
+
+[node name="Song" type="ColorRect" parent="." unique_id=1795604871]
+custom_minimum_size = Vector2(0, 64)
+offset_top = -128.0
+offset_right = 512.0
+offset_bottom = -64.0
+offset_transform_enabled = true
+
+[node name="Name" type="Label" parent="Song" unique_id=819096585]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 496.0
+offset_bottom = 31.0
+text = "Song"
+label_settings = SubResource("LabelSettings_hkr2y")
+
+[node name="SongList" type="VBoxContainer" parent="." unique_id=841753927]
+offset_left = 384.0
+offset_top = 64.0
+offset_right = 896.0
+offset_bottom = 720.0

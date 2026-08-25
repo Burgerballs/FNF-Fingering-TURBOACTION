@@ -1,0 +1,95 @@
+extends Node2D
+class_name Sustain
+@export var textureSus:Texture2D
+@export var textureEnd:Texture2D
+@export var length = 4.0;
+var strumtime = 0
+var note:Note = null
+var timelength = Conductor.step_crotchet*1000
+var parentStrumline:NoteField
+var width = 50*0.7
+var column = 0
+var shrinking = false
+var shouldDestroy = false
+var coyoteTimer = 0.45
+var released = false
+var dead = false
+var confirmedKilled = false
+var confirmedCompleted = false
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+var c = 0
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _physics_process(delta: float) -> void:
+	queue_redraw()
+	length = ceil(timelength / (Conductor.step_crotchet*1000))
+	if (shrinking && !dead):
+		strumtime = Conductor.position*1000
+		timelength -= delta*1000
+		if (timelength < 0):
+			confirmedCompleted = true
+			shrinking = false
+	if released:
+		coyoteTimer = clamp(coyoteTimer - delta, 0, 0.45)
+		dead = coyoteTimer <= 0
+	shouldDestroy = ((strumtime + timelength) - (Conductor.position * 1000) <= -1000)
+	c+= delta;
+
+func get_points(time):
+	var pos = ModMan.instance.getPos(time, 0,0,column,parentStrumline.playerNum,self,parentStrumline,Vector3.ZERO)
+	
+	var points = Rect2(-width/2, 0, width/2, 0)
+	var scale = (1.0 / pos.z) if (pos.z!=0.0) else 1.0
+	
+	points.position *= Vector2(scale, scale)
+	points.size *= Vector2(scale, scale)
+	
+	points.position.x += ModMan.instance.swagWidth/2.
+	points.size.x += ModMan.instance.swagWidth/2.
+	points.position.y += ModMan.instance.swagWidth/2.
+	points.size.y += ModMan.instance.swagWidth/2.
+	
+	points.position += Vector2(pos.x, pos.y)
+	points.size += Vector2(pos.x, pos.y)
+	
+	return points
+
+func _draw() -> void:
+	var density = Main.sustainDensity * 2
+	var uvProgress = range((density) * 2)
+	# top1 x y top2 x y
+	# bot1 x y top2 x y
+	for i in uvProgress:
+		i = (i / density);
+	for l in range(length):
+		var timel = (timelength / length) * (l)
+		var timela = (timelength / length) * (l+1)
+		for i in range(density):
+			var firstUV = uvProgress[i] / (density)
+			var secondUV = uvProgress[i+1] / (density)
+			var time = (strumtime + timel) - parentStrumline.time
+			var time2 = (strumtime + timela) - parentStrumline.time
+			if time2 >= 2000: return
+			if -time2 >= 2000: break
+				  
+			
+			var top = get_points(lerp(time, time2, firstUV))
+			var bot = get_points(lerp(time, time2, secondUV))
+			
+			if (top.position.y >= 1280 && bot.position.y >= 1280) or (top.position.y <= 0 && bot.position.y <= 0):
+				break
+			
+			var texture = textureSus if (l + 1 != length) else textureEnd
+			
+			var color = Color.WHITE
+			
+			color = Color.WHITE.darkened((1 - clamp(coyoteTimer / 0.45, 0, 1)) / 2)
+			
+			if dead or not shrinking:
+				color.a = 0.7
+			
+			draw_colored_polygon([top.position, top.size, bot.position], color, [Vector2(0,firstUV), Vector2(1,firstUV), Vector2(0,secondUV)], texture)
+			draw_colored_polygon([bot.position, bot.size, top.size], color, [Vector2(0,secondUV), Vector2(1,secondUV), Vector2(1,firstUV)], texture)
+		

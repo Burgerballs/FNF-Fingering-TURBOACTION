@@ -1,0 +1,11 @@
+{
+	"format": "psych",
+	"charts": {
+		"normal": "tremendous-hard.json"
+	},
+	"multitrack": false,
+	"tracks": {
+		"instrumental": "Inst.ogg",
+		"voices": "Voices.ogg"
+	}
+}

@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://d2hrs3e0hej1l"]
+
+[ext_resource type="PackedScene" uid="uid://xeexjscoui6c" path="res://objects/Notefield.tscn" id="1_ibkli"]
+[ext_resource type="Script" uid="uid://btvv0ghrqx7ul" path="res://scenes/game.gd" id="1_qbsmt"]
+[ext_resource type="PackedScene" uid="uid://bun2p1wg2xo08" path="res://objects/huds/SignatureHUD.tscn" id="3_cpr0p"]
+[ext_resource type="PackedScene" uid="uid://br4ub02qw750b" path="res://objects/popup_manager.tscn" id="4_78awf"]
+
+[node name="Game" type="Node2D" unique_id=979187953]
+script = ExtResource("1_qbsmt")
+
+[node name="hud" type="CanvasLayer" parent="." unique_id=189469533]
+
+[node name="PopupManager" parent="hud" unique_id=663449972 instance=ExtResource("4_78awf")]
+z_index = -10
+
+[node name="PlrField" parent="hud" unique_id=122444783 instance=ExtResource("1_ibkli")]
+player = true
+
+[node name="Oppfield" parent="hud" unique_id=702561348 instance=ExtResource("1_ibkli")]
+playerNum = 1
+
+[node name="SignatureHud" parent="hud" unique_id=120562132 instance=ExtResource("3_cpr0p")]
+z_index = 5
+
+[node name="camGame" type="Camera2D" parent="." unique_id=1065239452]
+position = Vector2(935, 475)
+zoom = Vector2(0.9, 0.9)
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0

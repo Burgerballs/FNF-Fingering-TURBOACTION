@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://xeexjscoui6c"]
+
+[ext_resource type="Script" uid="uid://be4iva5sed44o" path="res://objects/notefield.gd" id="1_ntuxq"]
+
+[node name="Notefield" type="Node2D" unique_id=606202690]
+script = ExtResource("1_ntuxq")
+
+[node name="Holds" type="Node2D" parent="." unique_id=2130214456]
+
+[node name="Notes" type="Node2D" parent="." unique_id=103777275]
+z_index = 1
+
+[node name="Strums" type="Node2D" parent="." unique_id=616698472]

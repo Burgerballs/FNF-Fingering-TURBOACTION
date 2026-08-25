@@ -1,0 +1,138 @@
+[gd_scene format=3 uid="uid://dt1wbf86s3xk"]
+
+[ext_resource type="Script" uid="uid://cmpobps87h0qf" path="res://scenes/main.gd" id="1_elqb8"]
+[ext_resource type="FontFile" uid="uid://cfverjxfqqpjh" path="res://assets/fonts/calibrii.ttf" id="2_rarhs"]
+[ext_resource type="FontFile" uid="uid://cbgbu8s2u7a3u" path="res://assets/fonts/helveticai.ttf" id="3_rarhs"]
+[ext_resource type="FontFile" uid="uid://cohtf401jxfmi" path="res://assets/fonts/helvetica.ttf" id="3_vcsgt"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_rarhs"]
+font = ExtResource("2_rarhs")
+
+[sub_resource type="Shader" id="Shader_rvslj"]
+code = "shader_type canvas_item;
+uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
+void fragment() {
+	COLOR.rgb = 1.0 - textureLod(SCREEN_TEXTURE, SCREEN_UV, 0.0).rgb;
+	COLOR.a = texture(TEXTURE , UV).a;
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_elqb8"]
+shader = SubResource("Shader_rvslj")
+
+[sub_resource type="Shader" id="Shader_c01mt"]
+code = "shader_type canvas_item;
+
+void vertex() {
+	// Called for every vertex the material is visible on.
+}
+
+void fragment() {
+	COLOR.rgb = vec3(0., 0., abs(sin(SCREEN_UV.y) * 2.));
+}
+
+//void light() {
+//	// Called for every pixel for every light affecting the CanvasItem.
+//	// Uncomment to replace the default light processing function with this one.
+//}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vcsgt"]
+shader = SubResource("Shader_c01mt")
+
+[sub_resource type="LabelSettings" id="LabelSettings_7amsx"]
+font = ExtResource("3_vcsgt")
+font_size = 96
+
+[sub_resource type="Shader" id="Shader_0bbpv"]
+code = "shader_type canvas_item;
+
+void vertex() {
+	// Called for every vertex the material is visible on.
+}
+
+float hash( float n ) {
+    return fract(sin(n/50.)*43758.5453);
+}
+
+float noise( in vec3 x ) {
+    vec3 p = floor(x);
+    vec3 f = fract(x);
+    f = f * f * (3.0 - 2.0 * f);
+    float n = p.x + p.y * 57.0 + 113.0 * p.z;
+    float res = mix(mix(mix( hash(n +   0.0), hash(n +   1.0), f.x),
+                        mix( hash(n +  57.0), hash(n +  58.0), f.x), f.y),
+                    mix(mix( hash(n + 113.0), hash(n + 114.0), f.x),
+                        mix( hash(n + 170.0), hash(n + 171.0), f.x), f.y), f.z);
+    return res;
+}
+
+void fragment() {
+	COLOR.rgb = vec3(noise(vec3(TIME+SCREEN_UV.x,TIME+SCREEN_UV.y*2.,TIME)),0.0,0.0);
+}
+
+//void light() {
+//	// Called for every pixel for every light affecting the CanvasItem.
+//	// Uncomment to replace the default light processing function with this one.
+//}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nxtc6"]
+shader = SubResource("Shader_0bbpv")
+
+[sub_resource type="LabelSettings" id="LabelSettings_lhcdp"]
+font = ExtResource("3_rarhs")
+font_size = 64
+
+[node name="Main" type="Node2D" unique_id=619492969]
+script = ExtResource("1_elqb8")
+
+[node name="ColorRect2" type="ColorRect" parent="." unique_id=1712386122]
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0, 0, 0, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=313684882]
+offset_left = 576.0
+offset_top = 302.0
+offset_right = 704.0
+offset_bottom = 721.0
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=951011927]
+layout_mode = 2
+text = "Freeplay"
+label_settings = SubResource("LabelSettings_rarhs")
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="VBoxContainer" unique_id=1945247363]
+layout_mode = 2
+text = "Options"
+label_settings = SubResource("LabelSettings_rarhs")
+horizontal_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1939652909]
+material = SubResource("ShaderMaterial_elqb8")
+offset_left = 448.0
+offset_top = 352.0
+offset_right = 805.0
+offset_bottom = 352.0
+
+[node name="Label" type="Label" parent="." unique_id=131534802]
+material = SubResource("ShaderMaterial_vcsgt")
+offset_top = 64.0
+offset_right = 1280.0
+offset_bottom = 256.0
+text = "Friday Night Fingering"
+label_settings = SubResource("LabelSettings_7amsx")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="." unique_id=315335140]
+material = SubResource("ShaderMaterial_nxtc6")
+offset_top = 216.0
+offset_right = 640.0
+offset_bottom = 281.0
+scale = Vector2(2, 1)
+text = "TURBO ACTION."
+label_settings = SubResource("LabelSettings_lhcdp")
+horizontal_alignment = 1

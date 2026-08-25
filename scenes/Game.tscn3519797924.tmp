@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://d2hrs3e0hej1l"]
+
+[ext_resource type="PackedScene" uid="uid://xeexjscoui6c" path="res://objects/Notefield.tscn" id="1_ibkli"]
+[ext_resource type="Script" uid="uid://btvv0ghrqx7ul" path="res://scenes/game.gd" id="1_qbsmt"]
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_qbsmt")
+
+[node name="PlrField" parent="." instance=ExtResource("1_ibkli")]
+player = true
+
+[node name="Oppfield" parent="." instance=ExtResource("1_ibkli")]
+playerNum = 1

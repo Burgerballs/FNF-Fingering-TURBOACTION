@@ -3,6 +3,7 @@
 	"charts": {
 		"normal": "test.json"
 	},
+	"behaviour": "TestSong.tscn",
 	"multitrack": false,
 	"tracks": {
 		"instrumental": "Inst.ogg",

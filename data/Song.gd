@@ -6,10 +6,11 @@ var speed:float = 3.0
 var bpm = 120
 var tracks:Dictionary = {}
 var camera_events:Array[CameraEvent] = []
+var behaviour:String = ''
 
 static func parse(name:String, difficulty:String = 'normal'):
 	var path = "res://assets/songs/"+name.to_lower()
-	var header = JSON.parse_string(FileAccess.get_file_as_string(path+"/header.json"))
+	var header:Dictionary = JSON.parse_string(FileAccess.get_file_as_string(path+"/header.json"))
 	var chartPath = path + '/' + header['charts'][difficulty]
 	var chart = Song.new()
 	match header['format']:
@@ -20,6 +21,9 @@ static func parse(name:String, difficulty:String = 'normal'):
 	for k in header["tracks"]:
 		var value = header["tracks"][k]
 		chart.tracks.merge({k: path +'/'+ value})
+	print(header)
+	if header.has('behaviour'):
+		chart.behaviour = path + '/' + header['behaviour']
 	return chart
 
 static func parse_vslice(path, difficulty = 'normal'):

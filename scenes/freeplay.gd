@@ -4,9 +4,9 @@ extends Node2D
 @onready var song_list = $SongList
 @export var songs:Array = [
 	['Test', 'test'],
-	['Sporting (Vs Matt V3)', 'test'],
-	['Opposition (Dave And Tung Sahir)', 'test'],
-	['Tremendous (the delta 4k one)', 'test']
+	['Sporting (Vs Matt V3)', 'sporting'],
+	['Opposition (Dave And Tung Sahir)', 'opposition'],
+	['Tremendous (the delta 4k one)', 'tremendous']
 ]
 var cur_select:int = 0
 
@@ -23,6 +23,8 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		select(-1)
 	if Input.is_action_just_pressed('ui_down'):
 		select(1)
+	if Input.is_action_just_pressed('ui_accept'):
+		Main.launch_song(songs[cur_select][1], '')
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta:float) -> void:
 	var it = 0

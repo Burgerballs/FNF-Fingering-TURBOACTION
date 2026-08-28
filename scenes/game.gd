@@ -1,5 +1,5 @@
 extends Node2D
-
+class_name Game
 var modManager:ModMan = ModMan.new();
 var bf:BaseCharacter
 var dad:BaseCharacter
@@ -16,10 +16,28 @@ var strumlines:Array[NoteField] = []
 @onready var hud = $hud/SignatureHud
 @onready var popups = $hud/PopupManager
 # Called when the node enters the scene tree for the first time.
-var songName = 'test'
+@onready var songName = 'test'
+var behaviour:Node2D = null;
+
+signal pre_ready
+signal post_ready
+signal pre_process(delta:float)
+signal post_process(delta:float)
+signal note_hit(note:Note)
+signal note_missed(note:Note)
+signal cam_targeted(character:BaseCharacter)
+
+
 func _ready() -> void:
 	Engine.physics_ticks_per_second = DisplayServer.screen_get_refresh_rate()*2.
-	song = Song.parse(songName, 'normal')
+	songName = Main.nextSong
+	song = Song.parse(Main.nextSong, 'normal')
+	
+	pre_ready.emit()
+	if (song.behaviour != ''):
+		behaviour = load(song.behaviour).instantiate()
+		behaviour.game = self
+		add_child(behaviour)
 	
 	strumlines = [playerField, opponentField]
 	var it = 0
@@ -69,7 +87,8 @@ func _ready() -> void:
 	dad.position.x -= dad.get_size().x / 2
 	
 	opponentField.linkedCharacter = dad
-	pass # Replace with function body.
+	
+	post_ready.emit()
 	
 func beat_hit(b):
 	for char in [bf, dad]:
@@ -77,19 +96,21 @@ func beat_hit(b):
 		
 func retarget(char:BaseCharacter):
 	camGame.position = char.cam_pos
-func note_miss(note:Note):
+	cam_targeted.emit(char)
+func note_miss(note):
 	stats.handleMiss()
 	if note.parentStrumline.trackIndex != 0:
 		Main.music.stream.set_sync_stream_volume(note.parentStrumline.trackIndex, -60)
 	popups.doPopup('miss')
 	hud.handleRating()
+	note_missed.emit(note)
 func good_note_hit(note:Note):
 	var diff = absf(note.strumtime - (Conductor.position * 1000))
 	var rating = stats.judgeNote(diff)
 	Main.music.stream.set_sync_stream_volume(note.parentStrumline.trackIndex, 0)
 	popups.doPopup(rating)
-	
 	hud.handleRating()
+	note_hit.emit(note)
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if (Conductor.position > 0 and not songPlayed):
@@ -98,6 +119,7 @@ func _process(delta: float) -> void:
 		songPlayed = true
 	elif (Conductor.position < 0):
 		Conductor.position += delta
+	pre_process.emit(delta)
 		
 	for event in song.camera_events:
 		if event.time < Conductor.position * 1000:
@@ -109,3 +131,4 @@ func _process(delta: float) -> void:
 	dad.resetDance(false)
 	
 	modManager.call_deferred('update', delta)
+	post_process.emit(delta)

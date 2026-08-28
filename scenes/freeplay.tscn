@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://g2fovssxkkh4" path="res://scenes/freeplay.gd" id="1_066v2"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_hkr2y"]
-font_size = 32
+font_size = 24
 font_color = Color(0, 0, 0, 1)
 
 [node name="Freeplay" type="Node2D" unique_id=1369000767]
@@ -21,9 +21,11 @@ layout_mode = 0
 offset_left = 8.0
 offset_top = 8.0
 offset_right = 496.0
-offset_bottom = 31.0
+offset_bottom = 56.0
 text = "Song"
 label_settings = SubResource("LabelSettings_hkr2y")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="SongList" type="VBoxContainer" parent="." unique_id=841753927]
 offset_left = 384.0

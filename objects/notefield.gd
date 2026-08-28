@@ -101,6 +101,7 @@ func _process(delta: float) -> void:
 		elif sus.dead && not sus.confirmedKilled:
 			strums.get_child(sus.column).playStatic()
 			sus.confirmedKilled = true
+			noteMiss.emit(sus)
 			
 func step_hit(step):
 	for sus in holds.get_children():

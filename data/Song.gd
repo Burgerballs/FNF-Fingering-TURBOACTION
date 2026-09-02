@@ -2,7 +2,7 @@ extends Node
 class_name Song
 
 var notes:Array = [] # 2D array of notes, X = strumline, Y = note
-var speed:float = 3.0
+var speed:float = 1.0
 var bpm = 120
 var tracks:Dictionary = {}
 var camera_events:Array[CameraEvent] = []
@@ -43,6 +43,7 @@ static func parse_psych(path):
 	var chart = Song.new()
 	chart.bpm = t['bpm']
 	chart.notes = [[],[]]
+	chart.speed = t['speed']
 	var it = 0
 	for sec:Dictionary in t['notes']:
 		

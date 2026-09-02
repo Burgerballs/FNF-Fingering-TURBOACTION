@@ -44,11 +44,17 @@ func _ready() -> void:
 	for line in song.notes:
 		for note in line:
 			strumlines[it].notesUnspawned.append(note)
+		strumlines[it].scrollSpeed = song.speed * Preferences.getPreference('scroll_speed_multiplier')
+		strumlines[it].playerNum = it
 		it+=1
 	stage = load("res://objects/stages/" +curStage+ ".tscn").instantiate()
 	playerField.connect('noteHit', good_note_hit)
 	playerField.connect('noteMiss', note_miss)
 	Conductor.connect('beat_hit', beat_hit)
+	
+	if Preferences.getPreference('centered_notefield'):
+		modManager.setValue('opponentSwap', 0.5, -1)
+		modManager.setValue('alpha', 1, 1)
 	
 	var it2 = 0
 	var trackPaths:Array[String] = []
@@ -106,7 +112,7 @@ func note_miss(note):
 	note_missed.emit(note)
 func good_note_hit(note:Note):
 	var diff = absf(note.strumtime - (Conductor.position * 1000))
-	var rating = stats.judgeNote(diff)
+	var rating = stats.judgeNote(diff + Preferences.getPreference('judgment_offset'))
 	Main.music.stream.set_sync_stream_volume(note.parentStrumline.trackIndex, 0)
 	popups.doPopup(rating)
 	hud.handleRating()

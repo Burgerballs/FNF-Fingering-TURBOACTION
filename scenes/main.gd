@@ -22,3 +22,5 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		match poo[cur_select]:
 			'freeplay':
 				get_tree().change_scene_to_file("res://scenes/freeplay.tscn")
+			'options':
+				get_tree().change_scene_to_file("res://scenes/options.tscn")

@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://dar7ssgyrwatq"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_y5w78"]
+viewport_path = NodePath("SubViewport")
+
+[node name="3dView" type="Node2D" unique_id=34582964]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=690439727]
+texture = SubResource("ViewportTexture_y5w78")
+centered = false
+
+[node name="SubViewport" type="SubViewport" parent="." unique_id=1718266694]
+size = Vector2i(1280, 720)
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport" unique_id=1137512861]

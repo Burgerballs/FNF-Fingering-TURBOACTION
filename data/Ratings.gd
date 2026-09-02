@@ -170,7 +170,7 @@ func react(rating, diff):
 var totalNotes:float = 0.0
 var totalPlayed:float = 0.0
 func judgeNote(diff):
-	var rating = ratings[ratings.size()-1]
+	var rating = ratings[4]
 	for r in hittables:
 		if (r['ms'] >= diff):
 			rating = r

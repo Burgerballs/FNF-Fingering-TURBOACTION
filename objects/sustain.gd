@@ -38,7 +38,7 @@ func _physics_process(delta: float) -> void:
 	c+= delta;
 
 func get_points(time):
-	var pos = ModMan.instance.getPos(time, 0,0,column,parentStrumline.playerNum,self,parentStrumline,Vector3.ZERO)
+	var pos = ModMan.instance.getPos(time, time,Conductor.beat,column,parentStrumline.playerNum,self,parentStrumline,Vector3.ZERO)
 	
 	var points = Rect2(-width/2, 0, width/2, 0)
 	var scale = (1.0 / pos.z) if (pos.z!=0.0) else 1.0
@@ -57,6 +57,8 @@ func get_points(time):
 	return points
 
 func _draw() -> void:
+	if timelength < Conductor.step_crotchet / parentStrumline.scrollSpeed:
+		return
 	var density = Main.sustainDensity * 2
 	var uvProgress = range((density) * 2)
 	# top1 x y top2 x y
@@ -78,17 +80,21 @@ func _draw() -> void:
 			var top = get_points(lerp(time, time2, firstUV))
 			var bot = get_points(lerp(time, time2, secondUV))
 			
+			var info = ModMan.instance.getExtraInfo(lerp(time, time2, lerp(firstUV, secondUV, 0.5)), time, Conductor.beat, column, parentStrumline.playerNum, self, parentStrumline, RenderInfo.new())
+			
+			if info.alpha <= 0: continue
+			
 			if (top.position.y >= 1280 && bot.position.y >= 1280) or (top.position.y <= 0 && bot.position.y <= 0):
-				break
+				continue
 			
 			var texture = textureSus if (l + 1 != length) else textureEnd
 			
 			var color = Color.WHITE
 			
 			color = Color.WHITE.darkened((1 - clamp(coyoteTimer / 0.45, 0, 1)) / 2)
-			
+			color.a = info.alpha
 			if dead or not shrinking:
-				color.a = 0.7
+				color.a *= 0.7
 			
 			draw_colored_polygon([top.position, top.size, bot.position], color, [Vector2(0,firstUV), Vector2(1,firstUV), Vector2(0,secondUV)], texture)
 			draw_colored_polygon([bot.position, bot.size, top.size], color, [Vector2(0,secondUV), Vector2(1,secondUV), Vector2(1,firstUV)], texture)

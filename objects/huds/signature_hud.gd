@@ -2,6 +2,7 @@ extends Node2D
 @onready var accuracyTxt = $TextContainer/AccuracyText
 @onready var scTxt2 = $TextContainer/ScoreText2
 @onready var healthBar = $HealthBarBG/HealthBar
+@onready var healthBarCont = $HealthBarBG
 var stats:Ratings = Ratings.instance;
 @onready var judgeCounters = $JudgeCounter
 @onready var template = $Cunter
@@ -14,7 +15,10 @@ func _ready() -> void:
 		judgeCounters.add_child(j)
 		j.get_child(0).text = i['nameAbb']
 		if Main.downscroll:
+			healthBarCont.position.y = 80.0
 			$TextContainer.alignment = 0
+		else:
+			healthBarCont.position.y = 720 - 103.0
 		
 		
 func handleRating():

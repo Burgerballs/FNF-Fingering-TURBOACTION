@@ -12,6 +12,7 @@ signal noteMiss(note:Note)
 @onready var notes = $Notes
 var trackIndex:int = 1
 var linkedCharacter:BaseCharacter
+var scrollSpeed = 1;
 var notesUnspawned:Array[NoteData] = []
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -19,13 +20,11 @@ func _ready() -> void:
 	Conductor.step_hit.connect(step_hit)
 func readyStrums():
 	for i in range(keyCount):
-		var x = ModMan.instance.getBaseX(i, playerNum, 4)
-		var y = 50
 		var n:StrumNote = load("res://objects/StrumNote.tscn").instantiate()
 		n.column = i
 		strums.add_child(n)
 		n.sprite.material = n.sprite.material.duplicate()
-		n.pos = Vector3(x,y,0)
+		n.pos = ModMan.instance.getPos(0, 0, Conductor.beat, n.column, playerNum, n, self, Vector3(0,0,0))
 		n.playStatic()
 
 func asc(a:Note,b:Note):
@@ -47,7 +46,7 @@ func _spawn_loop():
 		n.parentStrumline = self
 		var color:Color = QuantShit.getQuantColor(note.time)
 		n.sprite.material.set_shader_parameter('color', Vector3(color.r, color.g, color.b))
-		if n.length > 0:
+		if n.length > 320:
 			var s:Sustain = load("res://objects/Sustain.tscn").instantiate()
 			s.strumtime = 0
 			s.parentStrumline = self
@@ -69,10 +68,12 @@ func _process(delta: float) -> void:
 		spawnTimer = 0
 	for strum in strums.get_children():
 		strum.pos = ModMan.instance.getPos(0, 0, Conductor.beat, strum.column, playerNum, strum, self, Vector3(0,0,0))
+		strum.info = ModMan.instance.getExtraInfo(0,0, Conductor.beat, strum.column, playerNum, strum, self, RenderInfo.new())
 	for note in notes.get_children():
 		if note.strumtime - (Conductor.position*1000) < 0 and not player:
 			good_note_hit(note)
-			strums.get_child(note.column).playConfirm(true)
+			strums.get_child(note.column).sprite.material.set_shader_parameter('color', note.sprite.material.get_shader_parameter('color'))
+			strums.get_child(note.column).playConfirm(note.sustain == null)
 			if note.sustain != null:
 				note.sustain.shrinking = true
 			if trackIndex != 0:
@@ -85,7 +86,8 @@ func _process(delta: float) -> void:
 			notes.remove_child(note)
 			note.queue_free()
 		else:
-			note.pos = ModMan.instance.getPos(note.strumtime-time, note.strumtime-0, Conductor.beat, note.column, playerNum, note, self, Vector3(0,0,0))
+			note.info = ModMan.instance.getExtraInfo(note.strumtime-time, note.strumtime-time, Conductor.beat, note.column, playerNum, note, self, RenderInfo.new())
+			note.pos = ModMan.instance.getPos(note.strumtime-time, note.strumtime-time, Conductor.beat, note.column, playerNum, note, self, Vector3(0,0,0))
 	for sus in holds.get_children():
 		
 		if sus.shouldDestroy:
@@ -99,7 +101,10 @@ func _process(delta: float) -> void:
 			if not Input.is_action_pressed(Main.noteBinds[keyCount][sus.column]):
 				strums.get_child(sus.column).playStatic()
 		elif sus.dead && not sus.confirmedKilled:
-			strums.get_child(sus.column).playStatic()
+			if player:
+				strums.get_child(sus.column).playStatic()
+			else:
+				strums.get_child(sus.column).playConfirm(true)
 			sus.confirmedKilled = true
 			noteMiss.emit(sus)
 			
@@ -131,6 +136,8 @@ func _unhandled_input(_event: InputEvent) -> void:
 			var noteses = notes.get_children().filter(func(a:Note):return a.canHit and not a.wasHit and a.column == it)
 			noteses.sort_custom(asc)
 			if (noteses.size() >= 1):
+				if Preferences.getPreference('quants'):
+					strums.get_child(i).sprite.material.set_shader_parameter('color', noteses[0].sprite.material.get_shader_parameter('color'))
 				strums.get_child(i).playConfirm()
 				var note:Note = noteses[0]
 				good_note_hit(note)

@@ -28,6 +28,7 @@ driver/output_latency=10
 
 Main="*res://globals/Main.tscn"
 Conductor="*res://globals/Conductor.gd"
+Preferences="*uid://c3aeu8dq382be"
 
 [display]
 
@@ -44,23 +45,31 @@ enabled=PackedStringArray("res://addons/gdanimate/plugin.cfg")
 
 note_left={
 "deadzone": 0.2,
-"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":65,"key_label":0,"unicode":97,"location":0,"echo":false,"script":null)
-]
+"events": []
 }
 note_down={
 "deadzone": 0.2,
-"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":83,"key_label":0,"unicode":115,"location":0,"echo":false,"script":null)
-]
+"events": []
 }
 note_up={
 "deadzone": 0.2,
-"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":75,"key_label":0,"unicode":107,"location":0,"echo":false,"script":null)
-]
+"events": []
 }
 note_right={
 "deadzone": 0.2,
-"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":76,"key_label":0,"unicode":108,"location":0,"echo":false,"script":null)
-]
+"events": []
+}
+reset={
+"deadzone": 0.2,
+"events": []
+}
+ui_enter={
+"deadzone": 0.2,
+"events": []
+}
+ui_back={
+"deadzone": 0.2,
+"events": []
 }
 
 [physics]

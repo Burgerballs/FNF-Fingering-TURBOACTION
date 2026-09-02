@@ -30,6 +30,7 @@ layer = 9999
 script = ExtResource("1_nwixm")
 
 [node name="FPS" type="Label" parent="." unique_id=1453039515]
+visible = false
 offset_left = 2.0
 offset_top = 2.0
 offset_right = 7.0

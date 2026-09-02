@@ -2,7 +2,9 @@
 
 [ext_resource type="Script" uid="uid://cihn73p1ay30n" path="res://objects/characters/scripts/AnimatedSprite2DCharacter.gd" id="1_ak4oi"]
 [ext_resource type="Script" uid="uid://bgktb31uqlve6" path="res://objects/characters/scripts/data/AliasedAnim.gd" id="2_4fgvc"]
+[ext_resource type="Script" uid="uid://kecc3x7f0vy5" path="res://objects/characters/scripts/data/BaseAnim.gd" id="2_7m64j"]
 [ext_resource type="SpriteFrames" path="res://assets/characters/BOYFRIEND.res" id="3_skc10"]
+[ext_resource type="Script" uid="uid://rvyi82wy5r2" path="res://objects/characters/scripts/data/SpecialAnim.gd" id="4_jwlnf"]
 
 [sub_resource type="Resource" id="Resource_skc10"]
 script = ExtResource("2_4fgvc")
@@ -11,37 +13,42 @@ metadata/_custom_type_script = "uid://bgktb31uqlve6"
 
 [sub_resource type="Resource" id="Resource_7m64j"]
 script = ExtResource("2_4fgvc")
-name = "singLEFT"
 prefix = "BF NOTE LEFT"
 offset = Vector2(5, -6)
+name = "singLEFT"
 metadata/_custom_type_script = "uid://bgktb31uqlve6"
 
 [sub_resource type="Resource" id="Resource_jwlnf"]
 script = ExtResource("2_4fgvc")
-name = "singDOWN"
 prefix = "BF NOTE DOWN"
 offset = Vector2(-20, -51)
+name = "singDOWN"
 metadata/_custom_type_script = "uid://bgktb31uqlve6"
 
 [sub_resource type="Resource" id="Resource_5kbiy"]
 script = ExtResource("2_4fgvc")
-name = "singUP"
 prefix = "BF NOTE UP"
 offset = Vector2(-46, 27)
+name = "singUP"
 metadata/_custom_type_script = "uid://bgktb31uqlve6"
 
 [sub_resource type="Resource" id="Resource_7k7cp"]
 script = ExtResource("2_4fgvc")
-name = "singRIGHT"
 prefix = "BF NOTE RIGHT"
 offset = Vector2(-48, -7)
+name = "singRIGHT"
 metadata/_custom_type_script = "uid://bgktb31uqlve6"
+
+[sub_resource type="Resource" id="Resource_puc3j"]
+script = ExtResource("4_jwlnf")
+metadata/_custom_type_script = "uid://rvyi82wy5r2"
 
 [node name="bf" type="Node2D" unique_id=1827527415 node_paths=PackedStringArray("sprite", "cameraPosition")]
 script = ExtResource("1_ak4oi")
 sprite = NodePath("AnimatedSprite2D")
-anims = Array[ExtResource("2_4fgvc")]([SubResource("Resource_skc10"), SubResource("Resource_7m64j"), SubResource("Resource_jwlnf"), SubResource("Resource_5kbiy"), SubResource("Resource_7k7cp")])
-cameraPosition = NodePath("Node2D")
+anims = Array[ExtResource("2_7m64j")]([SubResource("Resource_skc10"), SubResource("Resource_7m64j"), SubResource("Resource_jwlnf"), SubResource("Resource_5kbiy"), SubResource("Resource_7k7cp"), SubResource("Resource_puc3j"), null])
+singDuration = null
+cameraPosition = NodePath("campos")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1729658902]
 sprite_frames = ExtResource("3_skc10")
@@ -50,5 +57,5 @@ frame = 13
 frame_progress = 1.0
 centered = false
 
-[node name="Node2D" type="Node2D" parent="." unique_id=1875018044]
+[node name="campos" type="Node2D" parent="." unique_id=1875018044]
 position = Vector2(18, 140)

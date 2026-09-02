@@ -11,6 +11,8 @@ shader_parameter/pointsTop = Vector4(0, 0, 0, 0)
 shader_parameter/pointsBottom = Vector4(0, 0, 0, 0)
 shader_parameter/scale = Vector2(0.7, 0.7)
 shader_parameter/rot = 0.0
+shader_parameter/color = Vector3(1, 1, 0)
+shader_parameter/canColor = false
 
 [node name="StrumNote" type="Node2D" unique_id=737259253]
 script = ExtResource("1_grg6b")
@@ -19,6 +21,6 @@ script = ExtResource("1_grg6b")
 material = SubResource("ShaderMaterial_grg6b")
 position = Vector2(54, 55)
 sprite_frames = ExtResource("1_kgbow")
-animation = &"arrowLEFT"
+animation = &"right press"
 
 [connection signal="animation_finished" from="sprite" to="." method="_on_sprite_animation_finished"]

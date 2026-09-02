@@ -6,6 +6,7 @@ var internalOptionsArr = []
 
 @onready var optionTemplate = $OptionTemplate
 @onready var categoryTemplate = $CategoryTemplate
+@onready var creditTemplate = $CreditTemplate
 @onready var categoryDivider = $CategoryDivider
 @onready var optionContainer = $OptionsPanel/OptionContainer
 @onready var categoryContainer = $Panel/VBoxContainer
@@ -136,6 +137,33 @@ var optionsReg = {
 		"type": "toggle",
 		"prevName": "Use Quant Colors",
 		"desc": "Enabling this makes notes colored by their time!"
+	},
+	"hold_subdivisions": {
+		"type": "num",
+		"bounds": [1,4,1],
+		"prevName": "Sustain Subdivisions",
+		"desc": "How many subdivisions are made for each sustain piece.",
+		"format": func(num): return 'x%s' % [str(num)]
+	},
+	"marsh": {
+		"type": "credit",
+		"prevName": "MarshmallowMoth",
+		"desc": "Responsible for many of the code from Troll Engine which I reused for the modcharting system."
+	},
+	"myceli": {
+		"type": "credit",
+		"prevName": "Myceli",
+		"desc": "The person who may or may not have made this engine."
+	},
+	"riconuts": {
+		"type": "credit",
+		"prevName": "Riconuts",
+		"desc": "Drew the \"Epic!!\" graphic used in the default skin of the engine. Originated from Troll Engine."
+	},
+	"srt": {
+		"type": "credit",
+		"prevName": "SRTHero278",
+		"desc": "Made the shader for color quants, originated from Vs Camellia's Never2x."
 	}
 }
 
@@ -151,6 +179,9 @@ var categories = {
 	],
 	"Visuals": [
 		'quants'
+	],
+	"Performance": [
+		'hold_subdivisions'
 	],
 	"Audio": [
 		"sfx_volume",
@@ -169,6 +200,12 @@ var categories = {
 		'ui_right',
 		'ui_enter',
 		'ui_back'
+	],
+	"Credits": [
+		'myceli',
+		'marsh',
+		'riconuts',
+		'srt'
 	]
 }
 
@@ -215,12 +252,19 @@ func _ready() -> void:
 		for option in categories[key]:
 			internalOptionsArr.append(option)
 			iterator += 1
-			var optionObj = optionTemplate.duplicate()
-			
-			optionObj.get_node('Name').text = optionsReg[option]['prevName']
-			optionObj.get_node('Description').text = optionsReg[option]['desc']
-			optionObj.get_node('Value').text = getValueString(option)
-			optionContainer.add_child(optionObj)
+			if optionsReg[option]['type'] != 'credit':
+				var optionObj = optionTemplate.duplicate()
+				
+				optionObj.get_node('Name').text = optionsReg[option]['prevName']
+				optionObj.get_node('Description').text = optionsReg[option]['desc']
+				optionObj.get_node('Value').text = getValueString(option)
+				optionContainer.add_child(optionObj)
+			else:
+				var optionObj = creditTemplate.duplicate()
+				
+				optionObj.get_node('Name').text = optionsReg[option]['prevName']
+				optionObj.get_node('Description').text = optionsReg[option]['desc']
+				optionContainer.add_child(optionObj)
 		it2+=1
 			
 	selectorOption.position.y = optionContainer.get_child(curSelect).global_position.y
@@ -245,7 +289,7 @@ func modifyPref(add:int):
 	var option = internalOptionsArr[curSelect]
 	if option != '':
 		var optionData = optionsReg[option]
-		if (optionData['type'] == 'control'): return
+		if (optionData['type'] == 'control' or optionData['type'] == 'credit'): return
 		var pref = Preferences.getPreference(option)
 		match optionData['type']:
 			'num':
@@ -284,6 +328,8 @@ func _unhandled_key_input(event: InputEvent) -> void:
 				canSelect = false
 				binding = true
 				optionContainer.get_child(curSelect).get_node('Value').text = '< Press Any Key >'
+		if Input.is_action_just_pressed('ui_back'):
+			get_tree().change_scene_to_file("res://scenes/Main.tscn")
 	elif (binding):
 		if event.is_pressed():
 			print('oooo')

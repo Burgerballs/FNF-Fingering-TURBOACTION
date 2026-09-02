@@ -19,7 +19,9 @@ var animations = [
 	'green',
 	'red'
 ]
-var info = RenderInfo.new()
+var info = {
+	'alpha': 1
+}
 
 
 # Called when the node enters the scene tree for the first time.
@@ -38,7 +40,7 @@ func _process(delta: float) -> void:
 	sprite.material.set_shader_parameter('position', Vector2(pos.x, pos.y))
 	
 	var scale = (1.0 / pos.z)
-	modulate.a = info.alpha
+	modulate.a = info['alpha']
 	sprite.material.set_shader_parameter('scale', Vector2(0.7 * scale, 0.7 * scale))
 	
 	canHit = absf(strumtime - (Conductor.position * 1000)) <= Ratings.max_ms

@@ -2,6 +2,8 @@ class_name BeatModifier
 extends BaseModifier
 func name():
 	return 'beat'
+func doesUsePos():
+	return true
 var beatFactors:Array[Array] = [[0,0,0],[0,0,0]]
 func scale(value:float, clow:float, chigh:float, nlow:float, nhigh:float):
 	return (value - clow) * (nhigh - nlow) / (chigh - clow) + nlow;

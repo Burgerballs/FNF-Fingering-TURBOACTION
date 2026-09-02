@@ -46,7 +46,7 @@ func _spawn_loop():
 		n.parentStrumline = self
 		var color:Color = QuantShit.getQuantColor(note.time)
 		n.sprite.material.set_shader_parameter('color', Vector3(color.r, color.g, color.b))
-		if n.length > 320:
+		if n.length > 0:
 			var s:Sustain = load("res://objects/Sustain.tscn").instantiate()
 			s.strumtime = 0
 			s.parentStrumline = self
@@ -68,7 +68,7 @@ func _process(delta: float) -> void:
 		spawnTimer = 0
 	for strum in strums.get_children():
 		strum.pos = ModMan.instance.getPos(0, 0, Conductor.beat, strum.column, playerNum, strum, self, Vector3(0,0,0))
-		strum.info = ModMan.instance.getExtraInfo(0,0, Conductor.beat, strum.column, playerNum, strum, self, RenderInfo.new())
+		strum.info = ModMan.instance.getExtraInfo(0,0, Conductor.beat, strum.column, playerNum, strum, self)
 	for note in notes.get_children():
 		if note.strumtime - (Conductor.position*1000) < 0 and not player:
 			good_note_hit(note)
@@ -86,7 +86,7 @@ func _process(delta: float) -> void:
 			notes.remove_child(note)
 			note.queue_free()
 		else:
-			note.info = ModMan.instance.getExtraInfo(note.strumtime-time, note.strumtime-time, Conductor.beat, note.column, playerNum, note, self, RenderInfo.new())
+			note.info = ModMan.instance.getExtraInfo(note.strumtime-time, note.strumtime-time, Conductor.beat, note.column, playerNum, note, self)
 			note.pos = ModMan.instance.getPos(note.strumtime-time, note.strumtime-time, Conductor.beat, note.column, playerNum, note, self, Vector3(0,0,0))
 	for sus in holds.get_children():
 		

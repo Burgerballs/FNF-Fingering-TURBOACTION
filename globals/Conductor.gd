@@ -56,7 +56,7 @@ func _ready():
 var lastPos = 0
 func _process(delta):
 	if (linked_stream!=null and not song_paused):
-		position += delta
+		position = linked_stream.get_playback_position() + AudioServer.get_time_since_last_mix()
 	if step_f != prev_step:
 		step_hit.emit(step_f)
 	if beat_f != prev_beat:

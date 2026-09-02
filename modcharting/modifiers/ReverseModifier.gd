@@ -4,6 +4,8 @@ func name():
 	return 'reverse'
 func active(player):
 	return true
+func doesUsePos():
+	return true
 
 func getReverseValue(data:int, player:int):
 	var v = values[player]

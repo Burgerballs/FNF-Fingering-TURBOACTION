@@ -23,8 +23,10 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		select(-1)
 	if Input.is_action_just_pressed('ui_down'):
 		select(1)
-	if Input.is_action_just_pressed('ui_accept'):
+	if Input.is_action_just_pressed('ui_enter'):
 		Main.launch_song(songs[cur_select][1], '')
+	if Input.is_action_just_pressed('ui_back'):
+		get_tree().change_scene_to_file("res://scenes/Main.tscn")
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta:float) -> void:
 	var it = 0

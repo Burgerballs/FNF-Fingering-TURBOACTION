@@ -2,6 +2,8 @@ class_name PerspectiveModifier
 extends BaseModifier
 func name():
 	return '_perspective'
+func doesUsePos():
+	return true
 func scale(value:float, clow:float, chigh:float, nlow:float, nhigh:float):
 	return (value - clow) * (nhigh - nlow) / (chigh - clow) + nlow;
 func doesUpdate():

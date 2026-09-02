@@ -62,6 +62,10 @@ font_size = 24
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7amsx"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_kv8mn"]
+font = ExtResource("1_yjkok")
+font_size = 36
+
 [node name="Options" type="Node2D" unique_id=1999298325]
 script = ExtResource("1_2iy26")
 
@@ -209,3 +213,32 @@ layout_mode = 0
 offset_right = 992.0
 offset_bottom = 64.0
 offset_transform_enabled = true
+
+[node name="CreditTemplate" type="Panel" parent="." unique_id=1603177920]
+custom_minimum_size = Vector2(0, 64)
+offset_left = 256.0
+offset_top = -640.0
+offset_right = 1248.0
+offset_bottom = -576.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_fbn3k")
+
+[node name="Name" type="Label" parent="CreditTemplate" unique_id=2110692843]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 376.0
+offset_bottom = 64.0
+text = "MarshmallowMoth"
+label_settings = SubResource("LabelSettings_kv8mn")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Description" type="Label" parent="CreditTemplate" unique_id=1820028391]
+layout_mode = 0
+offset_left = 392.0
+offset_right = 983.0
+offset_bottom = 64.0
+text = "Responsible for many of the code from Troll Engine which I shamelessly took for the purpose of this engine LOL!!!"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2

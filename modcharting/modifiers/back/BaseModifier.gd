@@ -8,11 +8,15 @@ func active(player):
 	return getValue(player) != 0
 func doesUpdate():
 	return false
+func doesUsePos():
+	return false
+func doesUseInfo():
+	return false
 func _init(modMgr:ModMan) -> void:
 	self.modMgr = modMgr
 func getPos(diff:float, tDiff:float, beat:float, data:int, player:int, obj:Node2D, field:NoteField, pos:Vector3):
 	return pos
-func getExtraInfo(diff:float, tDiff:float, beat:float, data:int, player:int, obj:Node2D, field:NoteField, info:RenderInfo):
+func getExtraInfo(diff:float, tDiff:float, beat:float, data:int, player:int, obj:Node2D, field:NoteField, info:Dictionary):
 	return info
 func getValue(player):
 	return values[player]

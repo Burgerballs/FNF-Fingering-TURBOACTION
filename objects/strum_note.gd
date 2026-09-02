@@ -6,7 +6,9 @@ class_name StrumNote
 var pos:Vector3 = Vector3()
 var sustain:Sustain
 var length = 2000
-var info = RenderInfo.new()
+var info = {
+	'alpha': 1
+}
 var strumAnims:Array = [
 	['arrowLEFT', 'left press', 'left confirm'],
 	['arrowDOWN', 'down press', 'down confirm'],
@@ -42,7 +44,7 @@ var timer = 0.0
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	sprite.material.set_shader_parameter('position', Vector2(pos.x, pos.y))
-	modulate.a = info.alpha
+	modulate.a = info['alpha']
 	var scale = (1.0 / pos.z)
 	sprite.material.set_shader_parameter('scale', Vector2(0.7 * scale, 0.7 * scale))
 	if switchToStatic:

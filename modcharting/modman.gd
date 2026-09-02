@@ -39,14 +39,17 @@ func getPos(diff:float, tDiff:float, beat:float, data:int, player:int, obj:Node2
 	)
 	for ident in registry:
 		var mod = registry[ident]
-		if not mod.active(player): continue
+		if not mod.active(player) or not mod.doesUsePos(): continue
 		pos = mod.getPos(diff,tDiff,beat,data,player,obj,field,pos)
 	return pos;
 	
-func getExtraInfo(diff:float, tDiff, beat:float, data:int, player:int, obj:Node2D, field:NoteField, info:RenderInfo):
+func getExtraInfo(diff:float, tDiff, beat:float, data:int, player:int, obj:Node2D, field:NoteField, info:Dictionary = {
+	'alpha': 1
+}):
+	
 	for ident in registry:
 		var mod = registry[ident]
-		if not mod.active(player): continue
+		if not mod.active(player) or not mod.doesUseInfo(): continue
 		info = mod.getExtraInfo(diff,tDiff,beat,data,player,obj,field,info)
 	return info
 # TAKEN FROM THIS!!! THANKS MARSH AND STUFF!!

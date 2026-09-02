@@ -59,28 +59,27 @@ func get_points(time):
 func _draw() -> void:
 	if timelength < Conductor.step_crotchet / parentStrumline.scrollSpeed:
 		return
-	var density = Main.sustainDensity * 2
+	var density = Main.sustainDensity
 	var uvProgress = range((density) * 2)
 	# top1 x y top2 x y
 	# bot1 x y top2 x y
 	for i in uvProgress:
 		i = (i / density);
 	for l in range(length):
-		var timel = (timelength / length) * (l)
-		var timela = (timelength / length) * (l+1)
+		var timel = (timelength / (length)) * (l)
+		var timela = (timelength / (length)) * (l+1)
+		var time = (strumtime + timel) - parentStrumline.time
+		var time2 = (strumtime + timela) - parentStrumline.time
+		if time >= 2000: return
 		for i in range(density):
 			var firstUV = uvProgress[i] / (density)
 			var secondUV = uvProgress[i+1] / (density)
-			var time = (strumtime + timel) - parentStrumline.time
-			var time2 = (strumtime + timela) - parentStrumline.time
-			if time2 >= 2000: return
-			if -time2 >= 2000: break
 				  
 			
 			var top = get_points(lerp(time, time2, firstUV))
 			var bot = get_points(lerp(time, time2, secondUV))
 			
-			var info = ModMan.instance.getExtraInfo(lerp(time, time2, lerp(firstUV, secondUV, 0.5)), time, Conductor.beat, column, parentStrumline.playerNum, self, parentStrumline, RenderInfo.new())
+			var info = ModMan.instance.getExtraInfo(lerp(time, time2, lerp(firstUV, secondUV, 0.5)), time, Conductor.beat, column, parentStrumline.playerNum, self, parentStrumline)
 			
 			if info.alpha <= 0: continue
 			

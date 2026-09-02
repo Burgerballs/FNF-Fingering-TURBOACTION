@@ -29,7 +29,7 @@ signal cam_targeted(character:BaseCharacter)
 
 
 func _ready() -> void:
-	Engine.physics_ticks_per_second = DisplayServer.screen_get_refresh_rate()*2.
+	Engine.physics_ticks_per_second = DisplayServer.screen_get_refresh_rate()
 	songName = Main.nextSong
 	song = Song.parse(Main.nextSong, 'normal')
 	
@@ -132,9 +132,15 @@ func _process(delta: float) -> void:
 			retarget(strumlines[event.field].linkedCharacter)
 			song.camera_events.erase(event)
 	if stats.health < stats.healthMin:
+		Main.music.stop()
 		get_tree().change_scene_to_file("res://scenes/fuckingdead.tscn")
 	bf.resetDance(playerField.keysPressed.find(true) >= 0)
 	dad.resetDance(false)
 	
 	modManager.call_deferred('update', delta)
 	post_process.emit(delta)
+	if Input.is_action_just_pressed('ui_back'):
+		quit()
+func quit():
+	Main.music.stop()
+	get_tree().change_scene_to_file("res://scenes/Main.tscn")

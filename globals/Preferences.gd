@@ -9,6 +9,7 @@ var defaultSaveRef:Dictionary = {
 	'judgment_offset': 0.,
 	'sfx_volume': 1.,
 	'hitsound_volume': 0.,
+	'hold_subdivisions': 1.,
 	'quants': false,
 	'hitsound_behaviour': "Key Press",
 	"controls": {
@@ -59,6 +60,7 @@ func set_binds():
 func actUpon():
 	set_binds()
 	Main.downscroll = getPreference('downscroll')
+	Main.sustainDensity = getPreference('hold_subdivisions')
 func saveData():
 	var file = FileAccess.open("user://Preferences.json", FileAccess.WRITE)
 	file.store_string(JSON.stringify(defaultSave))

@@ -36,12 +36,11 @@ func _ready() -> void:
 	songName = Main.nextSong
 	song = Song.parse(Main.nextSong, 'normal')
 	
-	pre_ready.emit()
 	if (song.behaviour != ''):
 		behaviour = load(song.behaviour).instantiate()
 		behaviour.game = self
 		add_child(behaviour)
-	
+	pre_ready.emit()
 	strumlines = [playerField, opponentField]
 	var it = 0
 	for line in song.notes:

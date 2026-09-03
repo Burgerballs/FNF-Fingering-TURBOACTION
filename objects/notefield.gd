@@ -13,6 +13,8 @@ signal noteMiss(note:Note)
 var trackIndex:int = 1
 var linkedCharacter:BaseCharacter
 var scrollSpeed = 1;
+var noteScene = load("res://objects/Note.tscn")
+var susScene = load("res://objects/Sustain.tscn")
 var notesUnspawned:Array[NoteData] = []
 var skinFrames:SpriteFrames = preload("res://assets/notes/funkin.res")
 var skin:String = 'funkin':
@@ -43,11 +45,14 @@ func asc(a:Note,b:Note):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 
+func filterUseless(d:NoteData):
+	return d.time - time <= 2000
+
 func _spawn_loop():
-	for i in notesUnspawned.filter(func(d): return d.time - time <= 2000):
+	for i in notesUnspawned.filter(filterUseless):
 		var note = notesUnspawned.pop_front()
 		notesUnspawned.erase(note)
-		var n:Note = load("res://objects/Note.tscn").instantiate()
+		var n:Note = noteScene.instantiate()
 		n.column = note.column
 		n.length = i.length
 		n.strumtime = note.time
@@ -60,7 +65,7 @@ func _spawn_loop():
 		n.sprite.material.set_shader_parameter('color', Vector3(color.r, color.g, color.b))
 		n.sprite.material.set_shader_parameter('canColor', Preferences.getPreference('quants'))
 		if n.length > 0:
-			var s:Sustain = load("res://objects/Sustain.tscn").instantiate()
+			var s:Sustain = susScene.instantiate()
 			s.strumtime = 0
 			s.parentStrumline = self
 			s.strumtime = n.strumtime
@@ -75,15 +80,23 @@ func _spawn_loop():
 		n.refresh_note()
 var time = 0
 var spawnTimer:float = 2
+var renderTime:float = 1
+var renderTimer:float = 1. / DisplayServer.screen_get_refresh_rate()
 func _process(delta: float) -> void:
 	time = Conductor.position*1000
 	spawnTimer+=delta
+	renderTime += delta
 	if spawnTimer >= 1./24.:
 		_spawn_loop()
 		spawnTimer = 0
-	for strum in strums.get_children():
-		strum.pos = ModMan.instance.getPos(0, 0, Conductor.beat, strum.column, playerNum, strum, self, Vector3(0,0,0))
-		strum.info = ModMan.instance.getExtraInfo(0,0, Conductor.beat, strum.column, playerNum, strum, self)
+	if renderTime >= renderTimer:
+		renderTime = 0
+		for strum in strums.get_children():
+			strum.pos = ModMan.instance.getPos(0, 0, Conductor.beat, strum.column, playerNum, strum, self, Vector3(0,0,0))
+			strum.info = ModMan.instance.getExtraInfo(0,0, Conductor.beat, strum.column, playerNum, strum, self)
+		for note in notes.get_children():
+			note.info = ModMan.instance.getExtraInfo(note.strumtime-time, note.strumtime-time, Conductor.beat, note.column, playerNum, note, self)
+			note.pos = ModMan.instance.getPos(note.strumtime-time, note.strumtime-time, Conductor.beat, note.column, playerNum, note, self, Vector3(0,0,0))
 	for note in notes.get_children():
 		if note.strumtime - (Conductor.position*1000) < 0 and not player:
 			good_note_hit(note)
@@ -101,9 +114,6 @@ func _process(delta: float) -> void:
 		if note.shouldDestroy:
 			notes.remove_child(note)
 			note.queue_free()
-		else:
-			note.info = ModMan.instance.getExtraInfo(note.strumtime-time, note.strumtime-time, Conductor.beat, note.column, playerNum, note, self)
-			note.pos = ModMan.instance.getPos(note.strumtime-time, note.strumtime-time, Conductor.beat, note.column, playerNum, note, self, Vector3(0,0,0))
 	for sus in holds.get_children():
 		
 		if sus.shouldDestroy:

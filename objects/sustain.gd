@@ -36,7 +36,9 @@ func _ready() -> void:
 var c = 0
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
-	queue_redraw()
+	if c >= 1. / 240:
+		c = 0;
+		queue_redraw()
 	length = ceil(timelength / (Conductor.step_crotchet*1000))
 	if (shrinking && !dead):
 		strumtime = Conductor.position*1000

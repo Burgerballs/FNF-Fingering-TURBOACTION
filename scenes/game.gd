@@ -16,11 +16,14 @@ var songPlayed = false
 @onready var camGame:Camera2D = $camGame
 var stats:Ratings = Ratings.new()
 var strumlines:Array[NoteField] = []
+@onready var hudContainer = $hud
 @onready var hud = $hud/SignatureHud
 @onready var popups = $hud/PopupManager
 # Called when the node enters the scene tree for the first time.
 @onready var songName = 'test'
 var behaviour:Node2D = null;
+var defaultCamZoom:float = 1
+var zoomModulo:int = 4
 
 signal pre_ready
 signal post_ready
@@ -35,13 +38,12 @@ func _ready() -> void:
 	Engine.physics_ticks_per_second = DisplayServer.screen_get_refresh_rate()
 	songName = Main.nextSong
 	song = Song.parse(Main.nextSong, 'normal')
-	
+	strumlines = [playerField, opponentField]
 	if (song.behaviour != ''):
 		behaviour = load(song.behaviour).instantiate()
 		behaviour.game = self
 		add_child(behaviour)
 	pre_ready.emit()
-	strumlines = [playerField, opponentField]
 	var it = 0
 	for line in song.notes:
 		for note in line:
@@ -50,6 +52,7 @@ func _ready() -> void:
 		strumlines[it].playerNum = it
 		it+=1
 	stage = load("res://objects/stages/" +curStage+ ".tscn").instantiate()
+	defaultCamZoom = stage.zoom
 	playerField.connect('noteHit', good_note_hit)
 	playerField.connect('noteMiss', note_miss)
 	Conductor.connect('beat_hit', beat_hit)
@@ -77,6 +80,9 @@ func _ready() -> void:
 	Main.setupMultitrack(trackPaths)
 	Conductor.bpm = song.bpm
 	Conductor.position = -Conductor.crotchet*4
+	Conductor.prev_bar = -64
+	Conductor.prev_step = -64
+	Conductor.prev_beat = -64
 	
 	add_child(stage)
 	
@@ -122,7 +128,9 @@ func _ready() -> void:
 func beat_hit(b):
 	for char in [bf, dad, gf]:
 		char.dance()
-		
+	if b % zoomModulo == 0 && zoomModulo != 0:
+		camGame.zoom = camGame.zoom + Vector2(0.015,0.015)
+		hudContainer.scale = hudContainer.scale + Vector2(0.03,0.03)
 func retarget(char:BaseCharacter):
 	camGame.position = char.cam_pos
 	cam_targeted.emit(char)
@@ -150,6 +158,12 @@ func _process(delta: float) -> void:
 	elif (Conductor.position < 0):
 		Conductor.position += delta
 	pre_process.emit(delta)
+	
+	camGame.zoom = Vector2.ONE * lerpf(camGame.zoom.x, defaultCamZoom, delta * 3.0)
+	hudContainer.scale = Vector2.ONE * lerpf(hudContainer.scale.x, 1.0, delta * 3.0)
+	
+	hudContainer.offset.x = 640. * -(hudContainer.scale.x - 1)
+	hudContainer.offset.y = 480. * -(hudContainer.scale.y - 1)
 		
 	for event in song.camera_events:
 		if event.time < Conductor.position * 1000:

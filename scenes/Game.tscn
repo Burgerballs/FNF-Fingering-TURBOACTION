@@ -9,6 +9,8 @@
 script = ExtResource("1_qbsmt")
 
 [node name="hud" type="CanvasLayer" parent="." unique_id=189469533]
+scale = Vector2(1.03, 1.03)
+transform = Transform2D(1.03, 0, 0, 1.03, 0, 0)
 
 [node name="PopupManager" parent="hud" unique_id=663449972 instance=ExtResource("4_78awf")]
 z_index = -10

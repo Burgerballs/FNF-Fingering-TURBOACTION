@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c3d5if3h7nrc0"]
 
-[ext_resource type="Script" uid="uid://b6nskss3ukyd" path="res://objects/SongBehaviour.gd" id="1_abljp"]
+[ext_resource type="Script" uid="uid://oe2avuopdne4" path="res://assets/songs/test/TestSong.gd" id="1_abljp"]
 
 [node name="TestSong" type="Node2D" unique_id=1029733660]
 script = ExtResource("1_abljp")

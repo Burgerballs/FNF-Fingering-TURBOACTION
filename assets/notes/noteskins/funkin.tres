@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="NoteSkin" format=3 uid="uid://c2rajqvak4biy"]
+
+[ext_resource type="SpriteFrames" path="res://assets/notes/funkin.res" id="1_3mahg"]
+[ext_resource type="SpriteFrames" path="res://assets/notes/funkin-quant.res" id="2_2mn5h"]
+[ext_resource type="Script" uid="uid://dt2qby6g1fwj0" path="res://data/Noteskin.gd" id="3_8k5pt"]
+
+[resource]
+script = ExtResource("3_8k5pt")
+frames = ExtResource("1_3mahg")
+quant_frames = ExtResource("2_2mn5h")
+antialiased = true
+metadata/_custom_type_script = "uid://dt2qby6g1fwj0"

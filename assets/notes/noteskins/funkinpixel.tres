@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="NoteSkin" format=3 uid="uid://k4rxv5un8laf"]
+
+[ext_resource type="SpriteFrames" uid="uid://cltjvhwc8xe31" path="res://assets/notes/pixel/arrows.res" id="1_10184"]
+[ext_resource type="Script" uid="uid://dt2qby6g1fwj0" path="res://data/Noteskin.gd" id="3_le3q1"]
+
+[resource]
+script = ExtResource("3_le3q1")
+frames = ExtResource("1_10184")
+scale = 6.0
+sustainWidth = 1.5
+noteAnimPrefixes4K = ["noteLeft", "noteDown", "noteUp", "noteRight"]
+sustainHoldPiecesPrefixes4K = ["sustainLeft", "sustainDown", "sustainUp", "sustainRight"]
+sustainHoldEndsPrefixes4K = ["sustainLeftEnd", "sustainDownEnd", "sustainUpEnd", "sustainRightEnd"]
+receptorsPrefixes4K = [["staticLeft", "pressedLeft", "confirmLeft"], ["staticDown", "pressedDown", "confirmDown"], ["staticUp", "pressedUp", "confirmUp"], ["staticRight", "pressedRight", "confirmRight"]]
+metadata/_custom_type_script = "uid://dt2qby6g1fwj0"

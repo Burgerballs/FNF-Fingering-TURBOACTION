@@ -3,10 +3,7 @@ extends Node2D
 @onready var songtemplate = $Song
 @onready var song_list = $SongList
 @export var songs:Array = [
-	['Test', 'test'],
-	['Sporting (Vs Matt V3)', 'sporting'],
-	['Opposition (Dave And Tung Sahir)', 'opposition'],
-	['Tremendous (the delta 4k one)', 'tremendous']
+	['Test', 'test']
 ]
 var cur_select:int = 0
 

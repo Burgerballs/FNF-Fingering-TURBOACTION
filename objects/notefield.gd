@@ -16,17 +16,18 @@ var scrollSpeed = 1;
 var noteScene = load("res://objects/Note.tscn")
 var susScene = load("res://objects/Sustain.tscn")
 var notesUnspawned:Array[NoteData] = []
-var skinFrames:SpriteFrames = preload("res://assets/notes/funkin.res")
+var skinData:NoteSkin = load("res://assets/notes/noteskins/funkin.tres")
 var skin:String = 'funkin':
 	set(v):
-		if (Preferences.getPreference('quants') and FileAccess.file_exists("res://assets/notes/"+skin+"-quant.res")):
-			skinFrames = load("res://assets/notes/"+skin+"-quant.res")
-		else:
-			skinFrames = load("res://assets/notes/"+skin+".res")
 		skin = v
+		skinData = load("res://assets/notes/noteskins/"+skin+".tres")
+		for arrays in [strums.get_children(),holds.get_children(),notes.get_children()]:
+			for i in arrays:
+				i.skin = v
+				if i is StrumNote:
+					i.playStatic()
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	skin = 'funkin'
 	readyStrums()
 	Conductor.step_hit.connect(step_hit)
 func readyStrums():
@@ -46,7 +47,7 @@ func asc(a:Note,b:Note):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 
 func filterUseless(d:NoteData):
-	return d.time - time <= 2000
+	return (d.time - time) * 0.45 * scrollSpeed <= 1500
 
 func _spawn_loop():
 	for i in notesUnspawned.filter(filterUseless):
@@ -152,6 +153,7 @@ func good_note_hit(note:Note):
 func _unhandled_input(_event: InputEvent) -> void:
 	if !player: return
 	var it = 0
+	
 	for i in range(keyCount):
 		keysPressed[it] = Input.is_action_pressed(Main.noteBinds[keyCount][it])
 		if Input.is_action_just_pressed(Main.noteBinds[keyCount][it]):

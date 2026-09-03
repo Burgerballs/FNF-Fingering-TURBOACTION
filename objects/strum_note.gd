@@ -20,7 +20,9 @@ var strumAnims:Array = [
 var skin:String:
 	set(v):
 		skin = v
-		sprite.sprite_frames = parentStrumline.skinFrames
+		sprite.sprite_frames = parentStrumline.skinData.quant_frames if (Preferences.getPreference('quants') and parentStrumline.skinData.quant_frames != null) else parentStrumline.skinData.frames
+		strumAnims = parentStrumline.skinData.receptorsPrefixes4K
+		texture_filter = TEXTURE_FILTER_NEAREST if not parentStrumline.skinData.antialiased else TEXTURE_FILTER_PARENT_NODE
 var switchToStatic = false
 func playStatic():
 	switchToStatic = false
@@ -50,7 +52,7 @@ func _process(delta: float) -> void:
 	sprite.material.set_shader_parameter('position', Vector2(pos.x, pos.y))
 	modulate.a = info['alpha']
 	var scale = (1.0 / pos.z)
-	sprite.material.set_shader_parameter('scale', Vector2(0.7 * scale, 0.7 * scale))
+	sprite.material.set_shader_parameter('scale', Vector2(parentStrumline.skinData.scale * scale , parentStrumline.skinData.scale * scale))
 	if switchToStatic:
 		timer += delta
 		if timer >= 0.15:

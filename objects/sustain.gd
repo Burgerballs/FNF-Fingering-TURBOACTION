@@ -26,9 +26,10 @@ var animations = [
 var skin:String:
 	set(v):
 		skin = v
-		frames = parentStrumline.skinFrames
-		textureSus = frames.get_frame_texture(animations[column] + ' hold piece', 0)
-		textureEnd = frames.get_frame_texture(animations[column] + ' hold end', 0)
+		frames = parentStrumline.skinData.quant_frames if (Preferences.getPreference('quants') and parentStrumline.skinData.quant_frames != null) else parentStrumline.skinData.frames
+		textureSus = frames.get_frame_texture(parentStrumline.skinData.sustainHoldPiecesPrefixes4K[column], 0)
+		textureEnd = frames.get_frame_texture(parentStrumline.skinData.sustainHoldEndsPrefixes4K[column], 0)
+		texture_filter = TEXTURE_FILTER_NEAREST if not parentStrumline.skinData.antialiased else TEXTURE_FILTER_PARENT_NODE
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -58,13 +59,12 @@ func get_points(time):
 	var points = Rect2(-width/2, 0, width/2, 0)
 	var scale = (1.0 / pos.z) if (pos.z!=0.0) else 1.0
 	
-	points.position *= Vector2(scale, scale)
-	points.size *= Vector2(scale, scale)
-	
-	points.position.x += ModMan.instance.swagWidth/2.
-	points.size.x += ModMan.instance.swagWidth/2.
-	points.position.y += ModMan.instance.swagWidth/2.
-	points.size.y += ModMan.instance.swagWidth/2.
+	points.position *= Vector2(scale * parentStrumline.skinData.sustainWidth, scale)
+	points.size *= Vector2(scale * parentStrumline.skinData.sustainWidth, scale)
+	points.position.x += ModMan.instance.swagWidth*0.5
+	points.size.x += ModMan.instance.swagWidth*0.5
+	points.position.y += ModMan.instance.swagWidth*0.5
+	points.size.y += ModMan.instance.swagWidth*0.5
 	
 	points.position += Vector2(pos.x, pos.y)
 	points.size += Vector2(pos.x, pos.y)

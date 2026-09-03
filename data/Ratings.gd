@@ -119,7 +119,6 @@ var health = 1:
 	set(v):
 		if v > healthMax:
 			v = 2
-		print(v)
 		health = v
 		return v
 var combo = 0

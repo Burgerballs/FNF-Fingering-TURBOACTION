@@ -8,7 +8,8 @@ var curAnim:String = 'idle'
 var holdTimer:float = 0;
 @export var animationPlayer:AnimationPlayer
 @export var cameraPosition:Node2D
-
+@export var icon:BaseIcon
+@export var usuallyPlayer = false
 var canPlaySpecials:
 	get():
 		return animationPlayer != null
@@ -29,7 +30,7 @@ func find_animation(name = 'idle'):
 	for anim in anims:
 		if (anim.name == name):
 			return anim
-	return null
+	return anims[0]
 
 func get_size():
 	return Vector2(0,0)
@@ -37,6 +38,8 @@ func play(name, forced = false):
 	holdTimer = 0
 	curAnim = name
 	var anim = find_animation(name)
+	if animationPlayer != null:
+		animationPlayer.play('RESET')
 	if anim != null:
 		if anim is SpecialAnim:
 			if animationPlayer != null:
@@ -48,7 +51,7 @@ func resetDance(holding:bool):
 		dance(true)
 		holdTimer = 0
 func dance(forced = false):
-	curDance = wrapi(curDance + 1, 0, danceArray.size() - 1)
+	curDance = wrapi(curDance + 1, 0, danceArray.size())
 	play(danceArray[curDance])
 func _process(delta: float) -> void:
 	if (curAnim.begins_with('sing')):

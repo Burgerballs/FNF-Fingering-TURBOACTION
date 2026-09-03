@@ -12,6 +12,8 @@ var defaultSaveRef:Dictionary = {
 	'hold_subdivisions': 1.,
 	'quants': false,
 	'hitsound_behaviour': "Key Press",
+	'fpsLimit': 60,
+	'unlimitedFps': false,
 	"controls": {
 		"note_left": 'Left',
 		'note_down': 'Down',
@@ -61,6 +63,10 @@ func actUpon():
 	set_binds()
 	Main.downscroll = getPreference('downscroll')
 	Main.sustainDensity = getPreference('hold_subdivisions')
+	if getPreference('unlimitedFps'):
+		Engine.max_fps = 0
+	else:
+		Engine.max_fps = getPreference('fpsLimit')
 func saveData():
 	var file = FileAccess.open("user://Preferences.json", FileAccess.WRITE)
 	file.store_string(JSON.stringify(defaultSave))

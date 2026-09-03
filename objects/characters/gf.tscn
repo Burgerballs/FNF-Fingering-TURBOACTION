@@ -1,0 +1,161 @@
+[gd_scene format=3 uid="uid://uhsiuchls0e7"]
+
+[ext_resource type="Script" uid="uid://cdb3dsbv3br3n" path="res://objects/characters/scripts/BaseCharacter.gd" id="1_hl3dc"]
+[ext_resource type="Script" uid="uid://kecc3x7f0vy5" path="res://objects/characters/scripts/data/BaseAnim.gd" id="2_12nwf"]
+[ext_resource type="Script" uid="uid://rvyi82wy5r2" path="res://objects/characters/scripts/data/SpecialAnim.gd" id="3_6dfyt"]
+[ext_resource type="Script" uid="uid://cxgekmppk3de4" path="res://addons/gdanimate/animate_symbol.gd" id="4_58nus"]
+
+[sub_resource type="Resource" id="Resource_7amsx"]
+script = ExtResource("3_6dfyt")
+anim_name = "danceLeft"
+name = "danceLeft"
+metadata/_custom_type_script = "uid://rvyi82wy5r2"
+
+[sub_resource type="Resource" id="Resource_lhcdp"]
+script = ExtResource("3_6dfyt")
+anim_name = "danceRight"
+name = "danceRight"
+metadata/_custom_type_script = "uid://rvyi82wy5r2"
+
+[sub_resource type="Animation" id="Animation_mjdgg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimateSymbol:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimateSymbol:symbol")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["GF Dancing Beat"]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimateSymbol:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_5ntui"]
+resource_name = "danceLeft"
+step = 0.041666668
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimateSymbol:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1.1175871e-08, 0.04166668, 0.08333334, 0.12500001, 0.16666667, 0.20833334, 0.25, 0.2916667, 0.33333334, 0.375, 0.4166667, 0.45833334, 0.5, 0.5416666, 0.625),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimateSymbol:symbol")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["GF Dancing Beat"]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimateSymbol:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 1,
+"values": []
+}
+
+[sub_resource type="Animation" id="Animation_2i4ca"]
+resource_name = "danceRight"
+step = 0.041666668
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimateSymbol:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.041666668, 0.083333336, 0.125, 0.16666667, 0.20833334, 0.25, 0.29166666, 0.3333333, 0.375, 0.41666666, 0.4583333, 0.5, 0.5416667, 0.5833333),
+"transitions": PackedFloat32Array(1, 1.035265, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimateSymbol:symbol")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["GF Dancing Beat"]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimateSymbol:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 1,
+"values": []
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vijtu"]
+_data = {
+&"RESET": SubResource("Animation_mjdgg"),
+&"danceLeft": SubResource("Animation_5ntui"),
+&"danceRight": SubResource("Animation_2i4ca")
+}
+
+[node name="Gf" type="Node2D" unique_id=752449253 node_paths=PackedStringArray("animationPlayer")]
+script = ExtResource("1_hl3dc")
+danceArray = Array[String](["danceLeft", "danceRight"])
+anims = Array[ExtResource("2_12nwf")]([SubResource("Resource_7amsx"), SubResource("Resource_lhcdp")])
+animationPlayer = NodePath("AnimationPlayer")
+
+[node name="AnimateSymbol" type="Node2D" parent="." unique_id=2143824526]
+position = Vector2(-210, -329)
+script = ExtResource("4_58nus")
+atlas = "res://assets/characters/gf"
+symbol = "GF Dancing Beat"
+loop_mode = "Play Once"
+metadata/_custom_type_script = "uid://cxgekmppk3de4"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=667953489]
+libraries/ = SubResource("AnimationLibrary_vijtu")

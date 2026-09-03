@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://bev8pbgdnpdjn"]
+
+[ext_resource type="Script" uid="uid://cihn73p1ay30n" path="res://objects/characters/scripts/AnimatedSprite2DCharacter.gd" id="1_o4fyf"]
+[ext_resource type="Script" uid="uid://kecc3x7f0vy5" path="res://objects/characters/scripts/data/BaseAnim.gd" id="2_jjq5t"]
+[ext_resource type="Script" uid="uid://bgktb31uqlve6" path="res://objects/characters/scripts/data/AliasedAnim.gd" id="3_ev40h"]
+[ext_resource type="SpriteFrames" path="res://assets/characters/dad/DADDY_DEAREST.res" id="4_vgbgx"]
+[ext_resource type="PackedScene" uid="uid://tqkqnrgfs4rq" path="res://objects/characters/icons/dad.tscn" id="5_vgbgx"]
+
+[sub_resource type="Resource" id="Resource_7amsx"]
+script = ExtResource("3_ev40h")
+prefix = "Dad idle dance"
+metadata/_custom_type_script = "uid://bgktb31uqlve6"
+
+[sub_resource type="Resource" id="Resource_lhcdp"]
+script = ExtResource("3_ev40h")
+prefix = "Dad Sing Note RIGHT"
+offset = Vector2(0, 27)
+name = "singRIGHT"
+metadata/_custom_type_script = "uid://bgktb31uqlve6"
+
+[sub_resource type="Resource" id="Resource_fbn3k"]
+script = ExtResource("3_ev40h")
+prefix = "Dad Sing Note LEFT"
+offset = Vector2(-9, 10)
+name = "singLEFT"
+metadata/_custom_type_script = "uid://bgktb31uqlve6"
+
+[sub_resource type="Resource" id="Resource_hkr2y"]
+script = ExtResource("3_ev40h")
+prefix = "Dad Sing Note UP"
+offset = Vector2(-6, 50)
+name = "singUP"
+metadata/_custom_type_script = "uid://bgktb31uqlve6"
+
+[sub_resource type="Resource" id="Resource_vgbgx"]
+script = ExtResource("3_ev40h")
+prefix = "Dad Sing Note DOWN"
+offset = Vector2(0, -30)
+name = "singDOWN"
+metadata/_custom_type_script = "uid://bgktb31uqlve6"
+
+[node name="dad" type="Node2D" unique_id=1827527415 node_paths=PackedStringArray("sprite", "cameraPosition", "icon")]
+script = ExtResource("1_o4fyf")
+sprite = NodePath("AnimatedSprite2D")
+anims = Array[ExtResource("2_jjq5t")]([SubResource("Resource_7amsx"), SubResource("Resource_lhcdp"), SubResource("Resource_fbn3k"), SubResource("Resource_hkr2y"), SubResource("Resource_vgbgx")])
+cameraPosition = NodePath("campos")
+icon = NodePath("bf")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1729658902]
+sprite_frames = ExtResource("4_vgbgx")
+animation = &"Dad idle dance"
+centered = false
+
+[node name="campos" type="Node2D" parent="." unique_id=1875018044]
+position = Vector2(384, 246)
+
+[node name="bf" parent="." unique_id=284571905 instance=ExtResource("5_vgbgx")]
+iconSlices = {
+0: 1,
+0.2: 0,
+0.8: 2
+}

@@ -21,16 +21,13 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 var elapsedTimer:float = 0
-var frameCount:int = 0
 func _process(delta: float) -> void:
 	elapsedTimer+=delta
-	frameCount = frameCount + 1
 	if elapsedTimer >= 0.25:
-		fpsLabel.text = 'FPS: '+str(frameCount*4) + ' [' + str(floor(delta*50000)/50) + 'ms]\n' 
+		fpsLabel.text = 'FPS: '+str(Engine.get_frames_per_second()) + ' [' + str(floor(delta*50000)/50) + 'ms]\n' 
 		fpsLabel.text += 'RAM: ' + str(floor(OS.get_static_memory_usage() / 10000000.0 * 100) / 100) + 'MB\n'
 		fpsLabel.text += 'VRAM: ' + str(floor(Performance.get_monitor(Performance.RENDER_VIDEO_MEM_USED) / 10000000.0 * 100) / 100) + 'MB\n'
 		fpsLabel.text += 'DRAW CALLS: ' + str(int(Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME)))
-		frameCount = 0
 		elapsedTimer = 0
 	pass
 func setupMultitrack(tracks:Array[String]):

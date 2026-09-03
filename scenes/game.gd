@@ -3,12 +3,15 @@ class_name Game
 var modManager:ModMan = ModMan.new();
 var bf:BaseCharacter
 var dad:BaseCharacter
+var gf:BaseCharacter
 @onready var playerField = $hud/PlrField
 @onready var opponentField = $hud/Oppfield
 var song:Song
 var stage:BaseStage;
 var curStage = 'Stage'
 var curBF = 'bf'
+var curDad = 'dad'
+var curGF = 'gf'
 var songPlayed = false
 @onready var camGame:Camera2D = $camGame
 var stats:Ratings = Ratings.new()
@@ -77,27 +80,48 @@ func _ready() -> void:
 	Conductor.position = -Conductor.crotchet*4
 	
 	add_child(stage)
+	
+	curBF = song.bf
+	curDad = song.dad
+	
+	if (not FileAccess.file_exists("res://objects/characters/" +curBF+ ".tscn")):
+		curBF = 'bf'
+	if (not FileAccess.file_exists("res://objects/characters/" +curDad+ ".tscn")):
+		curDad = 'dad'
+		
+	gf = load("res://objects/characters/" +curGF+ ".tscn").instantiate()
+	add_child(gf)
+	gf.position = stage.gf_pos.position
+	gf.flipped = gf.usuallyPlayer
+	gf.position.y -= gf.get_size().y
+	gf.position.x -= gf.get_size().x / 2
+	if (gf.icon != null):
+		gf.icon.visible = false
+	
 	bf = load("res://objects/characters/" +curBF+ ".tscn").instantiate()
 	add_child(bf)
 	bf.position = stage.bf_pos.position
+	bf.flipped = not bf.usuallyPlayer
 	bf.position.y -= bf.get_size().y
 	bf.position.x -= bf.get_size().x / 2
 	
 	playerField.linkedCharacter = bf
 	
-	dad = load("res://objects/characters/" +curBF+ ".tscn").instantiate()
+	dad = load("res://objects/characters/" +curDad+ ".tscn").instantiate()
 	add_child(dad)
 	dad.position = stage.dad_pos.position
-	dad.flipped = true
+	dad.flipped = dad.usuallyPlayer
 	dad.position.y -= dad.get_size().y
 	dad.position.x -= dad.get_size().x / 2
+	
+	hud.setupIcons(self)
 	
 	opponentField.linkedCharacter = dad
 	
 	post_ready.emit()
 	
 func beat_hit(b):
-	for char in [bf, dad]:
+	for char in [bf, dad, gf]:
 		char.dance()
 		
 func retarget(char:BaseCharacter):
@@ -105,11 +129,12 @@ func retarget(char:BaseCharacter):
 	cam_targeted.emit(char)
 func note_miss(note):
 	stats.handleMiss()
-	if note.parentStrumline.trackIndex != 0:
-		Main.music.stream.set_sync_stream_volume(note.parentStrumline.trackIndex, -60)
 	popups.doPopup('miss')
 	hud.handleRating()
-	note_missed.emit(note)
+	if note != null:
+		if note.parentStrumline.trackIndex != 0:
+			Main.music.stream.set_sync_stream_volume(note.parentStrumline.trackIndex, -60)
+		note_missed.emit(note)
 func good_note_hit(note:Note):
 	var diff = absf(note.strumtime - (Conductor.position * 1000))
 	var rating = stats.judgeNote(diff + Preferences.getPreference('judgment_offset'))
@@ -134,8 +159,9 @@ func _process(delta: float) -> void:
 	if stats.health < stats.healthMin:
 		Main.music.stop()
 		get_tree().change_scene_to_file("res://scenes/fuckingdead.tscn")
-	bf.resetDance(playerField.keysPressed.find(true) >= 0)
+	bf.resetDance(playerField.keysPressed.find(true) != -1)
 	dad.resetDance(false)
+	gf.resetDance(false)
 	
 	modManager.call_deferred('update', delta)
 	post_process.emit(delta)

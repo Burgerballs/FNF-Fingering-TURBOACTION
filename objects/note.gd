@@ -13,6 +13,10 @@ var tooLate = false
 var wasHit:bool = false
 var health:float = 0.22;
 var missed = false
+var skin:String:
+	set(v):
+		skin = v
+		sprite.sprite_frames = parentStrumline.skinFrames
 var animations = [
 	'purple',
 	'blue',

@@ -10,15 +10,18 @@ func get_size():
 
 func play(name, forced = false):
 	var anim = find_animation(name)
+	if animationPlayer != null:
+		animationPlayer.play('RESET')
 	if anim != null:
 		if anim is SpecialAnim:
 			if animationPlayer != null:
+				
 				animationPlayer.play(anim.anim_name)
 				if forced:
 					animationPlayer.seek(0, true)
 		else:
 			sprite.sprite_frames.set_animation_speed(anim.prefix, anim.fps)
-			sprite.position = -anim.offset
+			sprite.offset = -anim.offset
 			if flipped:
 				sprite.position.x = -sprite.position.x
 			holdTimer = 0

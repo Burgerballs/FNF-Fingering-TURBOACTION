@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://crpvao5hjnglr" path="res://scenes/options.gd" id="1_2iy26"]
 [ext_resource type="FontFile" uid="uid://c84y1g3i5rdy0" path="res://assets/fonts/helveticab.ttf" id="1_yjkok"]
 [ext_resource type="FontFile" uid="uid://du1uxtjpgavpp" path="res://assets/fonts/calibriz.ttf" id="2_2iy26"]
+[ext_resource type="FontFile" uid="uid://cohtf401jxfmi" path="res://assets/fonts/helvetica.ttf" id="2_kv8mn"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7amsx"]
 bg_color = Color(0, 0, 0, 1)
@@ -15,6 +16,9 @@ corner_radius_top_left = 32
 corner_radius_top_right = 32
 corner_radius_bottom_right = 32
 corner_radius_bottom_left = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_y5w78"]
+font = ExtResource("1_yjkok")
 
 [sub_resource type="Shader" id="Shader_lhcdp"]
 code = "shader_type canvas_item;
@@ -36,6 +40,10 @@ shader = SubResource("Shader_lhcdp")
 bg_color = Color(1, 1, 1, 1)
 corner_radius_top_left = 32
 corner_radius_top_right = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_7amsx"]
+font = ExtResource("2_kv8mn")
+font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lhcdp"]
 bg_color = Color(1, 1, 1, 1)
@@ -94,6 +102,16 @@ offset_bottom = 608.0
 theme_override_constants/separation = 8
 alignment = 1
 
+[node name="Label" type="Label" parent="Panel" unique_id=150314357]
+layout_mode = 0
+offset_top = 8.0
+offset_right = 224.0
+offset_bottom = 48.0
+text = "Categories"
+label_settings = SubResource("LabelSettings_y5w78")
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="SelectorCategory" type="ColorRect" parent="." unique_id=355294972]
 material = SubResource("ShaderMaterial_7amsx")
 offset_left = 24.0
@@ -125,12 +143,32 @@ offset_right = 1008.0
 offset_bottom = 48.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_kv8mn")
 
+[node name="Label" type="Label" parent="OptionsPanel/Panel" unique_id=830128093]
+layout_mode = 0
+offset_top = -32.0
+offset_right = 1008.0
+offset_bottom = 80.0
+text = "Use the arrow keys to navigate the menu, hold SHIFT and navigate to quickly move to different categories."
+label_settings = SubResource("LabelSettings_7amsx")
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Panel2" type="Panel" parent="OptionsPanel" unique_id=2116121962]
 layout_mode = 0
 offset_top = 640.0
 offset_right = 1008.0
 offset_bottom = 688.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_lhcdp")
+
+[node name="Label" type="Label" parent="OptionsPanel/Panel2" unique_id=1783291395]
+layout_mode = 0
+offset_top = -24.0
+offset_right = 1008.0
+offset_bottom = 72.0
+text = "Use LEFT or RIGHT to change options, press ACCEPT to rebind keys."
+label_settings = SubResource("LabelSettings_7amsx")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="OptionTemplate" type="Panel" parent="." unique_id=766564549]
 custom_minimum_size = Vector2(0, 64)

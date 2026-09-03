@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://u1gd5kt4gypw"]
+[gd_scene format=3 uid="uid://u1gd5kt4gypw"]
 
 [ext_resource type="Script" uid="uid://cjow6k70i87vg" path="res://debug/tools/godot/sparrow_to_spriteframes.gd" id="1_7u426"]
 
@@ -88,7 +88,7 @@ outline_color = Color(0.109804, 0.0666667, 0.203922, 1)
 shadow_color = Color(0.0666667, 0.0117647, 0.117647, 0.580392)
 shadow_offset = Vector2(0, 3)
 
-[node name="sparrow_to_spriteframes" type="Control"]
+[node name="sparrow_to_spriteframes" type="Control" unique_id=1734899779]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -99,7 +99,7 @@ mouse_filter = 2
 script = ExtResource("1_7u426")
 metadata/_edit_lock_ = true
 
-[node name="title" type="Label" parent="."]
+[node name="title" type="Label" parent="." unique_id=1188088780]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -113,7 +113,7 @@ label_settings = SubResource("LabelSettings_cske1")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="panel" type="Panel" parent="."]
+[node name="panel" type="Panel" parent="." unique_id=83943005]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -124,7 +124,7 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_k0cmr")
 
-[node name="convert" type="Button" parent="panel"]
+[node name="convert" type="Button" parent="panel" unique_id=348813680]
 layout_mode = 0
 offset_left = 816.0
 offset_top = 548.0
@@ -133,7 +133,7 @@ offset_bottom = 612.0
 mouse_default_cursor_shape = 2
 text = "Convert"
 
-[node name="framerate" type="SpinBox" parent="panel"]
+[node name="framerate" type="SpinBox" parent="panel" unique_id=295489017]
 layout_mode = 0
 offset_left = 40.0
 offset_top = 548.0
@@ -146,7 +146,7 @@ rounded = true
 alignment = 1
 suffix = "FPS"
 
-[node name="looping" type="CheckBox" parent="panel"]
+[node name="looping" type="CheckBox" parent="panel" unique_id=1481906558]
 layout_mode = 0
 offset_left = 204.0
 offset_top = 548.0
@@ -159,7 +159,7 @@ theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_kjt1g")
 text = "Looping"
 alignment = 1
 
-[node name="offsets" type="CheckBox" parent="panel"]
+[node name="offsets" type="CheckBox" parent="panel" unique_id=1972997580]
 layout_mode = 0
 offset_left = 364.0
 offset_top = 548.0
@@ -173,7 +173,7 @@ button_pressed = true
 text = "Offsets"
 alignment = 1
 
-[node name="pick" type="Button" parent="panel"]
+[node name="pick" type="Button" parent="panel" unique_id=792032720]
 layout_mode = 0
 offset_left = 1048.0
 offset_top = 548.0
@@ -183,7 +183,7 @@ mouse_default_cursor_shape = 2
 text = "Pick Spritesheets
 "
 
-[node name="file" type="Label" parent="panel"]
+[node name="file" type="Label" parent="panel" unique_id=1685746381]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 10
@@ -199,7 +199,7 @@ label_settings = SubResource("LabelSettings_jwy14")
 vertical_alignment = 1
 text_overrun_behavior = 3
 
-[node name="status" type="Label" parent="panel"]
+[node name="status" type="Label" parent="panel" unique_id=99865690]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 48.0
@@ -210,7 +210,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_d1wy3")
 label_settings = SubResource("LabelSettings_0bndx")
 text_overrun_behavior = 3
 
-[node name="file_dialog" type="FileDialog" parent="."]
+[node name="file_dialog" type="FileDialog" parent="." unique_id=2044859922]
 oversampling_override = 1.0
 title = "Open a Spritesheet"
 initial_position = 1

@@ -69,9 +69,6 @@ func _process(delta):
 func link(stream_player:AudioStreamPlayer):
 	linked_stream = stream_player
 	linked_stream.connect('finished', func(): linked_stream = null)
-	step_hit.emit(0)
-	beat_hit.emit(0)
-	bar_hit.emit(0)
 func debug_metronome_func(b):
 	if debug_metronome:
 		Main.play_sound(load("res://assets/sounds/tick.mp3"), 2 if b % time_sig[0] == 0 else 1)

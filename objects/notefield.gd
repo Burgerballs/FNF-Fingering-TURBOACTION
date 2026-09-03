@@ -14,8 +14,17 @@ var trackIndex:int = 1
 var linkedCharacter:BaseCharacter
 var scrollSpeed = 1;
 var notesUnspawned:Array[NoteData] = []
+var skinFrames:SpriteFrames = preload("res://assets/notes/funkin.res")
+var skin:String = 'funkin':
+	set(v):
+		if (Preferences.getPreference('quants') and FileAccess.file_exists("res://assets/notes/"+skin+"-quant.res")):
+			skinFrames = load("res://assets/notes/"+skin+"-quant.res")
+		else:
+			skinFrames = load("res://assets/notes/"+skin+".res")
+		skin = v
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	skin = 'funkin'
 	readyStrums()
 	Conductor.step_hit.connect(step_hit)
 func readyStrums():
@@ -26,6 +35,8 @@ func readyStrums():
 		n.sprite.material = n.sprite.material.duplicate()
 		n.pos = ModMan.instance.getPos(0, 0, Conductor.beat, n.column, playerNum, n, self, Vector3(0,0,0))
 		n.playStatic()
+		n.parentStrumline = self
+		n.skin = skin
 
 func asc(a:Note,b:Note):
 	return a.strumtime < b.strumtime
@@ -44,8 +55,10 @@ func _spawn_loop():
 		n.position.y = 10000000
 		n.sprite.material = n.sprite.material.duplicate()
 		n.parentStrumline = self
+		n.skin = skin
 		var color:Color = QuantShit.getQuantColor(note.time)
 		n.sprite.material.set_shader_parameter('color', Vector3(color.r, color.g, color.b))
+		n.sprite.material.set_shader_parameter('canColor', Preferences.getPreference('quants'))
 		if n.length > 0:
 			var s:Sustain = load("res://objects/Sustain.tscn").instantiate()
 			s.strumtime = 0
@@ -54,7 +67,9 @@ func _spawn_loop():
 			s.timelength = n.length
 			s.column = n.column
 			s.material = s.material.duplicate()
+			s.material.set_shader_parameter('canColor', Preferences.getPreference('quants'))
 			s.material.set_shader_parameter('color', Vector3(color.r, color.g, color.b))
+			s.skin = n.skin
 			holds.add_child(s)
 			n.sustain = s
 		n.refresh_note()
@@ -81,6 +96,7 @@ func _process(delta: float) -> void:
 		if not note.canHit && note.strumtime - (Conductor.position*1000) < 0 and not note.missed:
 			note.missed = true
 			noteMiss.emit(note)
+			linkedCharacter.play('sing' + (['LEFT','DOWN','UP','RIGHT'])[note.column]+'miss', true)
 			
 		if note.shouldDestroy:
 			notes.remove_child(note)
@@ -96,7 +112,6 @@ func _process(delta: float) -> void:
 		if sus.shrinking && not sus.dead:
 			if trackIndex != 0:
 				Main.music.stream.set_sync_stream_volume(trackIndex, 0)
-			linkedCharacter.play('sing' + (['LEFT','DOWN','UP','RIGHT'])[sus.column], true)
 		elif sus.confirmedCompleted:
 			if not Input.is_action_pressed(Main.noteBinds[keyCount][sus.column]):
 				strums.get_child(sus.column).playStatic()
@@ -107,10 +122,12 @@ func _process(delta: float) -> void:
 				strums.get_child(sus.column).playConfirm(true)
 			sus.confirmedKilled = true
 			noteMiss.emit(sus)
+			linkedCharacter.play('sing' + (['LEFT','DOWN','UP','RIGHT'])[sus.column]+'miss', true)
 			
 func step_hit(step):
 	for sus in holds.get_children():
 		if sus.shrinking && not sus.dead:
+			linkedCharacter.play('sing' + (['LEFT','DOWN','UP','RIGHT'])[sus.column], true)
 			strums.get_child(sus.column).playConfirm()
 func good_note_hit(note:Note):
 	note.wasHit = true
@@ -137,13 +154,18 @@ func _unhandled_input(_event: InputEvent) -> void:
 			noteses.sort_custom(asc)
 			if (noteses.size() >= 1):
 				if Preferences.getPreference('quants'):
+		
 					strums.get_child(i).sprite.material.set_shader_parameter('color', noteses[0].sprite.material.get_shader_parameter('color'))
 				strums.get_child(i).playConfirm()
 				var note:Note = noteses[0]
 				good_note_hit(note)
 			elif sustains.size() == 0:
+				if not Preferences.getPreference('ghost_tapping'):
+					noteMiss.emit(null)
+					linkedCharacter.play('sing' + (['LEFT','DOWN','UP','RIGHT'])[it]+'miss', true)
 				strums.get_child(i).playPress()
-		elif Input.is_action_just_released(Main.noteBinds[keyCount][it]):
+		
+		if Input.is_action_just_released(Main.noteBinds[keyCount][it]):
 			var sustains = holds.get_children().filter(func(a:Sustain):return a.column == it and a.shrinking)
 			if sustains.size() == 0:
 				strums.get_child(i).playStatic()

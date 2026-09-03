@@ -16,6 +16,19 @@ var released = false
 var dead = false
 var confirmedKilled = false
 var confirmedCompleted = false
+var frames:SpriteFrames
+var animations = [
+	'purple',
+	'blue',
+	'green',
+	'red'
+]
+var skin:String:
+	set(v):
+		skin = v
+		frames = parentStrumline.skinFrames
+		textureSus = frames.get_frame_texture(animations[column] + ' hold piece', 0)
+		textureEnd = frames.get_frame_texture(animations[column] + ' hold end', 0)
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.

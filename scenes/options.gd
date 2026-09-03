@@ -138,6 +138,18 @@ var optionsReg = {
 		"prevName": "Use Quant Colors",
 		"desc": "Enabling this makes notes colored by their time!"
 	},
+	"unlimitedFps": {
+		"type": "toggle",
+		"prevName": "Unlimited Framerate",
+		"desc": "Enabling this will make the game try to do as many frames as it can, expect higher GPU and CPU usage."
+	},
+	"fpsLimit": {
+		"type": "num",
+		"bounds": [60,480,1],
+		"prevName": "Framerate Limit",
+		"desc": "How many frames will the game be allowed to do per second. Will be ignored if Unlimited Framerate is enabled.",
+		"format": func(num): return '%s FPS' % [str(num)]
+	},
 	"hold_subdivisions": {
 		"type": "num",
 		"bounds": [1,4,1],
@@ -181,7 +193,9 @@ var categories = {
 		'quants'
 	],
 	"Performance": [
-		'hold_subdivisions'
+		'hold_subdivisions',
+		'unlimitedFps',
+		'fpsLimit'
 	],
 	"Audio": [
 		"sfx_volume",
@@ -301,6 +315,7 @@ func modifyPref(add:int):
 			'toggle':
 				pref = not pref
 		Preferences.setPreference(option, pref)
+		Preferences.actUpon()
 		optionContainer.get_child(curSelect).get_node('Value').text = getValueString(option)
 		
 var canSelect = true

@@ -3,8 +3,10 @@
 [ext_resource type="Script" uid="uid://cihn73p1ay30n" path="res://objects/characters/scripts/AnimatedSprite2DCharacter.gd" id="1_ak4oi"]
 [ext_resource type="Script" uid="uid://bgktb31uqlve6" path="res://objects/characters/scripts/data/AliasedAnim.gd" id="2_4fgvc"]
 [ext_resource type="Script" uid="uid://kecc3x7f0vy5" path="res://objects/characters/scripts/data/BaseAnim.gd" id="2_7m64j"]
-[ext_resource type="SpriteFrames" path="res://assets/characters/BOYFRIEND.res" id="3_skc10"]
-[ext_resource type="Script" uid="uid://rvyi82wy5r2" path="res://objects/characters/scripts/data/SpecialAnim.gd" id="4_jwlnf"]
+[ext_resource type="SpriteFrames" path="res://assets/characters/bf/BOYFRIEND.res" id="3_skc10"]
+[ext_resource type="Script" uid="uid://rvyi82wy5r2" path="res://objects/characters/scripts/data/SpecialAnim.gd" id="4_7k7cp"]
+[ext_resource type="Script" uid="uid://cfdxfq54pwkqt" path="res://objects/AnimatedSprite.gd" id="5_5kbiy"]
+[ext_resource type="PackedScene" uid="uid://dwj2oqal3lwft" path="res://objects/characters/icons/bf.tscn" id="6_5kbiy"]
 
 [sub_resource type="Resource" id="Resource_skc10"]
 script = ExtResource("2_4fgvc")
@@ -40,22 +42,274 @@ name = "singRIGHT"
 metadata/_custom_type_script = "uid://bgktb31uqlve6"
 
 [sub_resource type="Resource" id="Resource_puc3j"]
-script = ExtResource("4_jwlnf")
+script = ExtResource("4_7k7cp")
+anim_name = "singLEFTmiss"
+name = "singLEFTmiss"
 metadata/_custom_type_script = "uid://rvyi82wy5r2"
 
-[node name="bf" type="Node2D" unique_id=1827527415 node_paths=PackedStringArray("sprite", "cameraPosition")]
+[sub_resource type="Resource" id="Resource_5nlgs"]
+script = ExtResource("4_7k7cp")
+anim_name = "singUPmiss"
+name = "singUPmiss"
+metadata/_custom_type_script = "uid://rvyi82wy5r2"
+
+[sub_resource type="Resource" id="Resource_bi7e8"]
+script = ExtResource("4_7k7cp")
+anim_name = "singDOWNmiss"
+name = "singDOWNmiss"
+metadata/_custom_type_script = "uid://rvyi82wy5r2"
+
+[sub_resource type="Resource" id="Resource_aopfd"]
+script = ExtResource("4_7k7cp")
+anim_name = "singRIGHTmiss"
+name = "singRIGHTmiss"
+metadata/_custom_type_script = "uid://rvyi82wy5r2"
+
+[sub_resource type="Animation" id="Animation_jwlnf"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_7k7cp"]
+resource_name = "singDOWNmiss"
+step = 0.041666668
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"BF NOTE DOWN MISS"]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:offset")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(8, 20)]
+}
+
+[sub_resource type="Animation" id="Animation_5kbiy"]
+resource_name = "singLEFTmiss"
+step = 0.041666668
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"BF NOTE LEFT MISS"]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:offset")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2, -16)]
+}
+
+[sub_resource type="Animation" id="Animation_puc3j"]
+resource_name = "singRIGHTmiss"
+step = 0.041666668
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"BF NOTE RIGHT MISS"]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:offset")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(32, -22)]
+}
+
+[sub_resource type="Animation" id="Animation_7up03"]
+resource_name = "singUPmiss"
+step = 0.041666668
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"BF NOTE UP MISS"]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:offset")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(16, -20)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7k7cp"]
+_data = {
+&"RESET": SubResource("Animation_jwlnf"),
+&"singDOWNmiss": SubResource("Animation_7k7cp"),
+&"singLEFTmiss": SubResource("Animation_5kbiy"),
+&"singRIGHTmiss": SubResource("Animation_puc3j"),
+&"singUPmiss": SubResource("Animation_7up03")
+}
+
+[node name="bf" type="Node2D" unique_id=1827527415 node_paths=PackedStringArray("sprite", "animationPlayer", "cameraPosition", "icon")]
 script = ExtResource("1_ak4oi")
 sprite = NodePath("AnimatedSprite2D")
-anims = Array[ExtResource("2_7m64j")]([SubResource("Resource_skc10"), SubResource("Resource_7m64j"), SubResource("Resource_jwlnf"), SubResource("Resource_5kbiy"), SubResource("Resource_7k7cp"), SubResource("Resource_puc3j"), null])
-singDuration = null
+anims = Array[ExtResource("2_7m64j")]([SubResource("Resource_skc10"), SubResource("Resource_7m64j"), SubResource("Resource_jwlnf"), SubResource("Resource_5kbiy"), SubResource("Resource_7k7cp"), SubResource("Resource_puc3j"), SubResource("Resource_5nlgs"), SubResource("Resource_bi7e8"), SubResource("Resource_aopfd")])
+animationPlayer = NodePath("AnimatedSprite2D/AnimationPlayer")
 cameraPosition = NodePath("campos")
+icon = NodePath("bf")
+usuallyPlayer = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1729658902]
 sprite_frames = ExtResource("3_skc10")
 animation = &"BF idle dance"
-frame = 13
-frame_progress = 1.0
 centered = false
+offset = Vector2(16, -20)
+script = ExtResource("5_5kbiy")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AnimatedSprite2D" unique_id=695732353]
+libraries/ = SubResource("AnimationLibrary_7k7cp")
 
 [node name="campos" type="Node2D" parent="." unique_id=1875018044]
 position = Vector2(18, 140)
+
+[node name="bf" parent="." unique_id=284571905 instance=ExtResource("6_5kbiy")]
+iconSlices = {
+0: 1,
+0.2: 0,
+0.8: 2
+}

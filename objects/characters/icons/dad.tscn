@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://tqkqnrgfs4rq"]
+
+[ext_resource type="Script" uid="uid://dr5n7toaldgeq" path="res://objects/characters/icons/scripts/SlicedIcon.gd" id="1_t8tq5"]
+[ext_resource type="Texture2D" uid="uid://evhijq22ree6" path="res://assets/icons/dad.png" id="2_t8tq5"]
+
+[node name="bf" type="Node2D" unique_id=284571905 node_paths=PackedStringArray("sprite")]
+script = ExtResource("1_t8tq5")
+iconSlices = null
+sprite = NodePath("Sprite2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1028109464]
+texture = ExtResource("2_t8tq5")
+hframes = 2

@@ -6,6 +6,7 @@ class_name StrumNote
 var pos:Vector3 = Vector3()
 var sustain:Sustain
 var length = 2000
+var parentStrumline:NoteField;
 var info = {
 	'alpha': 1
 }
@@ -16,7 +17,10 @@ var strumAnims:Array = [
 	['arrowRIGHT', 'right press', 'right confirm'],
 	
 ]
-
+var skin:String:
+	set(v):
+		skin = v
+		sprite.sprite_frames = parentStrumline.skinFrames
 var switchToStatic = false
 func playStatic():
 	switchToStatic = false

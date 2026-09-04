@@ -18,6 +18,9 @@ var skin:String:
 		skin = v
 		texture_filter = TEXTURE_FILTER_NEAREST if not parentStrumline.skinData.antialiased else TEXTURE_FILTER_PARENT_NODE
 		sprite.sprite_frames = parentStrumline.skinData.quant_frames if (Preferences.getPreference('quants') and parentStrumline.skinData.quant_frames != null) else parentStrumline.skinData.frames
+		var scale = (1.0 / pos.z)
+		modulate.a = info['alpha']
+		sprite.material.set_shader_parameter('scale', Vector2(parentStrumline.skinData.scale * scale, parentStrumline.skinData.scale * scale))
 var info = {
 	'alpha': 1
 }

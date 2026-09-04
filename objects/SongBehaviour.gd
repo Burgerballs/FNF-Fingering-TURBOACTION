@@ -13,9 +13,11 @@ var game:Game
 var eventQueue:Array[Dictionary] = []
 
 
-func _init() -> void:
-	pass
-
+func queueFunction(step:float, function:Callable):
+	eventQueue.append({
+		'step': step,
+		'func': function
+	})
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	game.note_hit.connect(good_note_hit)

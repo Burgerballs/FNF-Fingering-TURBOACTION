@@ -41,6 +41,7 @@ func _ready() -> void:
 	Engine.physics_ticks_per_second = DisplayServer.screen_get_refresh_rate()
 	songName = Main.nextSong
 	song = Song.parse(Main.nextSong, 'normal')
+	curStage = song.stage
 	strumlines = [playerField, opponentField]
 	if (song.behaviour != ''):
 		behaviour = load(song.behaviour).instantiate()
@@ -159,6 +160,8 @@ func good_note_hit(note:Note):
 func triggerEvent(event:BaseEvent):
 	if event is CameraEvent and not manualCamera:
 		retarget(strumlines[event.field].linkedCharacter)
+	if event is FunctionEvent:
+		event.action(self)
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if (Conductor.position > 0 and not songPlayed):

@@ -11,6 +11,7 @@ var behaviour:String = ''
 var bf:String = ''
 var dad:String = ''
 var gf:String = ''
+var stage:String = 'Stage'
 
 static func parse(name:String, difficulty:String = 'normal'):
 	var path = "res://assets/songs/"+name.to_lower()
@@ -29,6 +30,8 @@ static func parse(name:String, difficulty:String = 'normal'):
 		chart.behaviour = path + '/' + header['behaviour']
 	if header.has('bf'):
 		chart.bf = header['bf']
+	if header.has('stage'):
+		chart.stage = header['stage']
 	if header.has('dad'):
 		chart.dad = header['dad']
 	if header.has('gf'):

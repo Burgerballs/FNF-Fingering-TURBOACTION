@@ -20,7 +20,7 @@ var cam_pos:Vector2:
 			return pos
 		else:
 			var difference = (global_position.x + get_size().x) - pos.x
-			return Vector2(difference, pos.y)
+			return Vector2(difference + global_position.x, pos.y)
 signal on_flip
 var flipped = false:
 	set(v):

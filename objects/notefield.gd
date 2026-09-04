@@ -26,6 +26,8 @@ var skin:String = 'funkin':
 				i.skin = v
 				if i is StrumNote:
 					i.playStatic()
+				if i is Note:
+					i.refresh_note()
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	readyStrums()

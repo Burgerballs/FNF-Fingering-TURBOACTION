@@ -16,17 +16,23 @@ var noteBinds = {
 @onready var fpsLabel = $FPS
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	fpsLabel.visible = false
 
-
+var fullscreen = false
+func _unhandled_key_input(event: InputEvent) -> void:
+	if Input.is_action_just_pressed('performance_view'):
+		fpsLabel.visible = !fpsLabel.visible
+	if Input.is_action_just_pressed('fullscreen'):
+		fullscreen = !fullscreen
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED if !fullscreen else DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN) 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 var elapsedTimer:float = 0
 func _process(delta: float) -> void:
 	elapsedTimer+=delta
-	if elapsedTimer >= 0.25:
-		fpsLabel.text = 'FPS: '+str(Engine.get_frames_per_second()) + ' [' + str(floor(delta*50000)/50) + 'ms]\n' 
-		fpsLabel.text += 'RAM: ' + str(floor(OS.get_static_memory_usage() / 10000000.0 * 100) / 100) + 'MB\n'
-		fpsLabel.text += 'VRAM: ' + str(floor(Performance.get_monitor(Performance.RENDER_VIDEO_MEM_USED) / 10000000.0 * 100) / 100) + 'MB\n'
+	if elapsedTimer >= 1:
+		fpsLabel.text = 'FPS: '+str(Engine.get_frames_per_second()) + ' [' + str(floor(delta*50000)/50) + 'ms] - ' 
+		fpsLabel.text += 'RAM: ' + str(floor(OS.get_static_memory_usage() / 1000000. * 100) / 100) + 'MB - '
+		fpsLabel.text += 'VRAM: ' + str(floor(Performance.get_monitor(Performance.RENDER_VIDEO_MEM_USED) / 1000000.0 * 100) / 100) + 'MB - '
 		fpsLabel.text += 'DRAW CALLS: ' + str(int(Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME)))
 		elapsedTimer = 0
 	pass

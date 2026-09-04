@@ -10,7 +10,8 @@ static var ratings = [
 		"power": 1,
 		"color": Color(0.600, 0.400, 1.0, 1.0),
 		"hittable": true,
-		"health": 1.15
+		"health": 1.15,
+		"score": 500
 	},
 	{
 		"ms": 45,
@@ -20,7 +21,8 @@ static var ratings = [
 		"power": 0.9,
 		"color": Color(0.0, 0.783, 1.0, 1.0),
 		"hittable": true,
-		"health": 0.75
+		"health": 0.75,
+		"score": 350
 	},
 	{
 		"ms": 90,
@@ -30,7 +32,8 @@ static var ratings = [
 		"power": 0.1,
 		"color": Color(0.225, 0.997, 0.0, 1.0),
 		"hittable": true,
-		"health": 0.25
+		"health": 0.25,
+		"score": 100
 	},
 	{
 		"ms": 135,
@@ -40,7 +43,8 @@ static var ratings = [
 		"power": -1,
 		"color": Color(1.0, 1.0, 1.0, 1.0),
 		"hittable": true,
-		"health": 0
+		"health": 0,
+		"score": 0
 	},
 	{
 		"ms": 180,
@@ -50,7 +54,8 @@ static var ratings = [
 		"power": -5,
 		"color": Color(0.46, 0.46, 0.46, 1.0),
 		"hittable": true,
-		"health": -0.25
+		"health": -0.25,
+		"score": -150
 	},
 	{
 		"ms": 180,
@@ -122,6 +127,7 @@ var health = 1:
 		health = v
 		return v
 var combo = 0
+var score:int = 0
 var grade:String:
 	get:
 		if (totalPlayed >= 1):
@@ -155,11 +161,13 @@ func handleMiss():
 	health += ratings[5]['health'] * 0.02
 	statCount['miss'] += 1
 	statCount['cb'] += 1
+	score -= 500
 func react(rating, diff):
 	statCount[rating['name']] += 1
 	totalNotes+=1.0
 	totalPlayed+=rating['power']
 	health += rating['health'] * 0.02
+	score += rating['score']
 	if rating['doCB']:
 		combo = 0
 		statCount['cb'] += 1

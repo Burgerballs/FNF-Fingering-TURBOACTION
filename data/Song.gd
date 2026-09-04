@@ -1,11 +1,11 @@
-extends Node
+extends RefCounted
 class_name Song
 
 var notes:Array = [] # 2D array of notes, X = strumline, Y = note
 var speed:float = 1.0
 var bpm = 120
 var tracks:Dictionary = {}
-var camera_events:Array[CameraEvent] = []
+var events:Array[BaseEvent] = []
 var behaviour:String = ''
 
 var bf:String = ''
@@ -59,7 +59,7 @@ static func parse_psych(path):
 		var event = CameraEvent.new()
 		event.field = 0 if sec['mustHitSection'] else 1
 		event.time = ((60.0 / chart.bpm) * 1000*4) * it
-		chart.camera_events.append(event)
+		chart.events.append(event)
 		
 		for note in sec['sectionNotes']:
 			var daNoteData:int = int(note[1]);

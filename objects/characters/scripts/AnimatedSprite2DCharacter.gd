@@ -6,7 +6,7 @@ func _ready() -> void:
 	connect('on_flip', flip)
 
 func get_size():
-	return sprite.sprite_frames.get_frame_texture(find_animation(danceArray[0]).prefix, 0).get_size()
+	return sprite.sprite_frames.get_frame_texture(find_animation(danceArray[0]).prefix, 0).get_size()*sprite.scale
 
 func play(name, forced = false):
 	var anim = find_animation(name)

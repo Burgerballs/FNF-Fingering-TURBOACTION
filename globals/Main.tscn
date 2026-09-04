@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cq3q452uv3m1v"]
 
 [ext_resource type="Script" uid="uid://7yr33ere53st" path="res://globals/main.gd" id="1_nwixm"]
-[ext_resource type="FontFile" uid="uid://cbgbu8s2u7a3u" path="res://assets/fonts/helveticai.ttf" id="2_nwixm"]
+[ext_resource type="FontFile" uid="uid://cohtf401jxfmi" path="res://assets/fonts/helvetica.ttf" id="2_nwixm"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nwixm"]
 content_margin_left = 2.0
@@ -11,18 +11,33 @@ content_margin_bottom = 2.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_bh5np"]
 font = ExtResource("2_nwixm")
-font_size = 12
+font_size = 10
+
+[sub_resource type="Shader" id="Shader_h1m3g"]
+code = "shader_type canvas_item;
+uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
+void fragment() {
+	COLOR = vec4(textureLod(SCREEN_TEXTURE, SCREEN_UV, 2.).rgb * COLOR.rgb, COLOR.a);
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nwixm"]
+shader = SubResource("Shader_h1m3g")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h1m3g"]
 content_margin_left = 2.0
 content_margin_top = 2.0
 content_margin_right = 2.0
 content_margin_bottom = 2.0
-bg_color = Color(0.1, 0.1, 0.1, 0.6)
+bg_color = Color(0.37036446, 0.3703645, 0.37036446, 1)
 corner_radius_top_left = 6
 corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
 anti_aliasing_size = 0.26
 
 [node name="Main" type="CanvasLayer" unique_id=460866295]
@@ -30,21 +45,25 @@ layer = 9999
 script = ExtResource("1_nwixm")
 
 [node name="FPS" type="Label" parent="." unique_id=1453039515]
-offset_left = 2.0
-offset_top = 2.0
-offset_right = 7.0
-offset_bottom = 22.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 110.0
+offset_bottom = 21.0
 theme_override_styles/normal = SubResource("StyleBoxEmpty_nwixm")
+text = "Hello Everyone I Am Myceli"
 label_settings = SubResource("LabelSettings_bh5np")
+vertical_alignment = 1
 autowrap_trim_flags = 0
 justification_flags = 0
 
 [node name="ColorRect" type="Panel" parent="FPS" unique_id=1422936461]
 z_index = -1
+material = SubResource("ShaderMaterial_nwixm")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_h1m3g")

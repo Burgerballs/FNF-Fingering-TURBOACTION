@@ -8,6 +8,7 @@ var stats:Ratings = Ratings.instance;
 @onready var template = $Cunter
 var iconP1:BaseIcon
 var iconP2:BaseIcon
+@onready var scoreTxt:Label = $HealthBarBG/ScoreText
 func setupIcons(game:Game):
 	if game.bf.icon != null:
 		iconP1 = game.bf.icon
@@ -54,15 +55,16 @@ func handleRating():
 func _process(delta: float) -> void:
 	var perc = snappedf((stats.totalPlayed / stats.totalNotes) * 100, 0.001)
 	healthBar.value = stats.health
+	scoreTxt.text = 'Score: ' + str(stats.score)
 	accuracyTxt.text = (str(snappedf((stats.totalPlayed / stats.totalNotes) * 100, 0.001)) if not is_nan(perc) else '???.?')+'%'
 	scTxt2.text = 'Combo Breaks: ' + str(stats.statCount['cb']) + '\nRank: [' + stats.flag + ' | ' + stats.grade + ']'
 	
 	iconP1.val = healthBar.ratio
 	iconP2.val = 1 - healthBar.ratio
 	
-	iconP1.position = Vector2(healthBar.global_position.x + remap(1 - healthBar.ratio, 0, 1, 0, healthBar.size.x) + 55, 
+	iconP1.position = Vector2(healthBar.global_position.x + remap(1 - healthBar.ratio, 0, 1, 0, healthBar.size.x) + 62, 
 		healthBar.global_position.y + (healthBar.size.y/2.))
-	iconP2.position = Vector2(healthBar.global_position.x + remap(1 - healthBar.ratio, 0, 1, 0, healthBar.size.x) - 55, 
+	iconP2.position = Vector2(healthBar.global_position.x + remap(1 - healthBar.ratio, 0, 1, 0, healthBar.size.x) - 62, 
 		healthBar.global_position.y + (healthBar.size.y/2.))
 	iconP1.scale = lerp(iconP1.scale, Vector2.ONE, delta * 12)
 	iconP2.scale = lerp(iconP2.scale, Vector2.ONE, delta * 12)

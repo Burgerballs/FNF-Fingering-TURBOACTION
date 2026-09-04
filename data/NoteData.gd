@@ -1,4 +1,4 @@
-extends Node
+extends RefCounted
 class_name NoteData
 var time:float = 0 # Desired time
 var column:int = 0 # Desired direction
